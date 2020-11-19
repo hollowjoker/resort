@@ -41,7 +41,7 @@ if(isset($_GET['rid']) && $_GET['rid'] != ""){
           <table cellpadding="5" cellspacing="2" border="0">
             <tr>
               <td><strong><?php echo NUMBER_OF_ROOM;?>:</strong></td> 
-              <td valign="middle"><input type="text" name="no_of_room" id="no_of_room" class="required digits" value="<?=$row['NoOfRoom']?>" style="width:50px;" /> &nbsp;&nbsp;<?php echo EXAMPLE; ?>: 1, 2</td><input type="hidden" name="pre_room_cnt" value="<?=$row['NoOfRoom']?>" />
+              <td valign="middle"><input type="text" name="no_of_room" id="no_of_room" class="required digits" value="<?= isset($row['NoOfRoom']) ? $row['NoOfRoom'] : ''?>" style="width:50px;" /> &nbsp;&nbsp;<?php echo EXAMPLE; ?>: 1, 2</td><input type="hidden" name="pre_room_cnt" value="<?= isset($row['NoOfRoom']) ? $row['NoOfRoom'] : ''?>" />
             </tr>
             <tr>
               <td><strong><?php echo ROOM_TYPE_ADD_EDIT;?>:</strong></td>
@@ -49,11 +49,16 @@ if(isset($_GET['rid']) && $_GET['rid'] != ""){
             </tr>
             <tr>
               <td><strong><?php echo NO_OF_ADULT;?>:</strong></td>
-              <td><?=$capacityCombo;?></td>
+              <td>
+                <div class="d-none">
+                  <?= $capacityCombo ?>
+                </div>
+                <input type="text" name="room_capacity_id" id="room_capacity_id" class="required digits" value="<?= isset($row['NoOfRoom']) ? $row['NoOfRoom'] : ''?>" style="width:40px;" readonly />
+              </td>
             </tr>
               <tr>
               <td><strong><?php echo MAX_CHILD_PER_ROOM; ?>:</strong></td>
-              <td><input type="text" name="child_per_room" value="<?php echo $row['no_of_child']; ?>" style="width:40px;"/> (<?php echo LEAVE_BLANK_IF_NONE_TEXT; ?>)</td>
+              <td><input type="text" name="child_per_room" value="<?= isset($row['no_of_child']) ? $row['no_of_child'] : '' ?>" style="width:40px;"/> (<?php echo LEAVE_BLANK_IF_NONE_TEXT; ?>)</td>
             </tr>
             <tr>
               <td></td>
@@ -66,7 +71,12 @@ if(isset($_GET['rid']) && $_GET['rid'] != ""){
 	$().ready(function() {
 		$("#form1").validate();
 		
-     });
+    $("#roomtype_id").change(function () {
+      const roomtypeId = $(this).find(':selected').attr('data-capt-id');
+      const capacity = $('#capacity_id').find(`option[data-capt-id="${roomtypeId}"]`).attr('selected', 'selected').attr('data-capt-value');
+      $('#room_capacity_id').val(capacity);
+    });
+  });
          
 </script>      
 <script src="js/jquery.validate.js" type="text/javascript"></script>

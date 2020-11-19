@@ -64,7 +64,7 @@ $main_title=$_SESSION['main_title'];
 			echo '<ul>';
 			while($row_parent222=$sql_parent222->fetch_assoc())
 			{
-				echo '<li><a href="'.$row_parent222['url'].'"><span>'.$row_parent222['name'].'</span></a></li>';
+				echo '<li class="'.($row_parent222['name'] == 'Capacity Manager' ? 'd-none' : '').'"><a href="'.$row_parent222['url'].'"><span>'.$row_parent222['name'].'</span></a></li>';
 			}
 			echo '</ul>';
 		}else{

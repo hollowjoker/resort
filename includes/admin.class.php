@@ -1043,9 +1043,9 @@ public function fetchClientBookingDetails($clientid){
 		$chtml = '<select name="roomtype_id" id="roomtype_id"><option value="0">'.ADD_EDIT_ROOM_SELECT.'</option>';
 		while($row = $result->fetch_assoc()){
 			if($rid == $row['roomtype_ID']){
-				$chtml .= '<option value="'.$row['roomtype_ID'].'" selected="selected">'.$row['type_name'].'</option>';
+				$chtml .= '<option value="'.$row['roomtype_ID'].'" selected="selected" data-capt-id="'.$row['roomtype_ID'].'">'.$row['type_name'].'</option>';
 			}else{
-				$chtml .= '<option value="'.$row['roomtype_ID'].'">'.$row['type_name'].'</option>';	
+				$chtml .= '<option value="'.$row['roomtype_ID'].'" data-capt-id="'.$row['roomtype_ID'].'">'.$row['type_name'].'</option>';	
 			}
 		}
 		$chtml .= '</select>';
@@ -1058,9 +1058,9 @@ public function fetchClientBookingDetails($clientid){
 		$chtml = '<select name="capacity_id" id="capacity_id"><option value="0">'.ADD_EDIT_CAPACITY_SELECT.'</option>'; 
 		while($row = $result->fetch_assoc()){
 			if($cid == $row['id']){
-			    $chtml .= '<option value="'.$row['id'].'" selected="selected">'.$row['title'].'</option>';
+			    $chtml .= '<option value="'.$row['id'].'" selected="selected" data-capt-id="'.$row['id'].'" data-capt-value="'.$row['capacity'].'">'.$row['title'].'</option>';
 			}else{
-				$chtml .= '<option value="'.$row['id'].'">'.$row['title'].'</option>';
+				$chtml .= '<option value="'.$row['id'].'" data-capt-id="'.$row['id'].'" data-capt-value="'.$row['capacity'].'">'.$row['title'].'</option>';
 			}
 		}
 		$chtml .= '</select>';

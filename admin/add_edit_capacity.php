@@ -15,7 +15,8 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 	$id = $bsiCore->ClearInput($_GET['id']);
 	if($id){
 		$result = $mysqli->query($bsiAdminMain->getCapacitysql($id));
-		$row    = $result->fetch_assoc();
+    $row    = $result->fetch_assoc();
+    
 		$readonly = 'readonly="readonly"';
 	}else{
 		$row    = NULL;

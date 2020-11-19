@@ -126,4 +126,6 @@ div#menu li.back .left {
     height: 44px;
     margin-right: 8px;
 }
-
+.d-none {
+    display: none !important;
+}

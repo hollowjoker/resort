@@ -1,6 +1,5 @@
 <?php
 $sql=$mysqli->query("select * from bsi_language where `lang_default`=true");
-
 $row_default_lang=$sql->fetch_assoc();
 if(isset($_SESSION['language1']))
 $langauge_selcted=$mysqli->real_escape_string($_SESSION['language1']);

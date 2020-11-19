@@ -90,7 +90,7 @@ while($d=$r->fetch_assoc()):
 			//while($dd=mysql_fetch_array($rr)):
 			while($dd=$rr->fetch_assoc()):
 				if(!($k%2)){$class="odd";}else{$class="even";} 
-				echo"<tr bgcolor=#ffffff class=odd>
+				echo"<tr bgcolor=#ffffff class='odd ".($dd['name'] == 'Capacity Manager' ? 'd-none' : '')."'>
 						<td>&nbsp;|___________________</td>
 						<td >
 							<a class=lnk"; 

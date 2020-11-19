@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 include("../includes/db.conn.php");
 //******************************************
 $sql_lang_select=$mysqli->query("select * from bsi_language order by lang_title");
