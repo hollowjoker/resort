@@ -3,6 +3,20 @@ Made with Adobe™ Dreamweaver CSS Editor
 Authored by: Jan Michael Garde
 Created: January 29, 2014 */
 
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 @font-face {
 
     font-family: helv_font;
@@ -61,10 +75,10 @@ html
 body
 {
 	background-attachment: scroll;
-	background: url(images/blackbg.jpg);
+	/* background: url(images/blackbg.jpg); */
 	background-repeat:repeat-x;
 	background-position:left top;
-	background-color: #000000;
+	/* background-color: #000000; */
 	margin: 0px;
 }
 
@@ -165,7 +179,7 @@ form
 
 #rsrv_form fieldset label
 {
-	font-face:segwp-font;
+	font-family: segwp-font;
 	padding:5px;
 }
 
@@ -176,56 +190,51 @@ form
 		-webkit-border-radius: 3px;
 		border-radius: 3px;
 }
-
-
-#homeheadr_img
-{
-	background-color: transparent;
-	background:url(images/home-header-banner.jpg);
-	background-position:center;
-	height: 200px;
-	border: none;
+#homeheadr_img img {
+	height: 100vh;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+	margin-top: 50px;
 }
-
-#headr_img
-{
-	background-color: transparent;
-	background:url(images/main-header-banner.jpg);
-	background-position:center;
-	height: 200px;
-	border: none;
-}
-
-#main_nav
-{
-
+#main_nav {
 	font-family: segwp_font;
-	float:left;
 	color:#FFF;
 	text-align:center;
-	width: 1500px;
+	width: 100%;
 	height: 50px;
-	margin: 240px 10px 20px -238px;
-	
+	position: fixed;
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	background-color: #fff;
+	align-items: center;
+	justify-content: flex-end;
+	padding-left: 15px;
+	padding-right: 15px;
+	z-index: 10;
+	top: 0;
+	left: 0;
 }
-
+#main_nav li {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	transition: .3s;
+}
+#main_nav li:hover,
+#main_nav li.active
+{
+	background-color: #ccc;
+}
 #main_nav a {
+	padding-left: 15px;
+	padding-right: 15px;
 	text-decoration:none;
-	font-size:30pt;
-	display:inline;
+	font-size: 14px;
 	color: #000000;
 	margin: 0px;
-	padding: 40px 72px 40px 65px;
-	background-color: #cccccc
-
-}
-
-#main_nav a:hover {
-	color:#ffffff;
-	margin: 0px;
-		padding: 40px 72px 40px 65px;
-	text-decoration: bold;
-	background-color: #aaaaaa;
 }
 
 .main_container
@@ -247,7 +256,7 @@ form
 
 #content_container
 {
-	width: 900px;
+	width: 100%;
 	max-height: auto;
 	min-height:400px;
 	padding: 20px 60px 10px 60px;
@@ -380,7 +389,7 @@ display:inline-block;
 {
 	text-decoration:none;
 	color:#060;
-	font-face: segwpl_font;
+	font-family: segwpl_font;
 	font-size: 14px;
 }
 .check_avail a:hover
@@ -392,4 +401,90 @@ display:inline-block;
         height: 375px;
         margin: 0px;
         padding: 0px
+}
+section {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+section .container {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.card-holder {
+	display: flex;
+	margin-right: -15px;
+	margin-left: -15px;
+	flex-wrap: wrap;
+}
+.card {
+	width: 25%;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 15px;
+}
+.card .card-main {
+	border-radius: 5px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	overflow: hidden;
+}
+.card .card-body {
+	overflow: hidden;
+	position: relative;
+	height: 300px;
+}
+.card .card-body:after {
+	position: absolute;
+	content: "";
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	background-image: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,0,0,0.6) 11%, rgba(0,0,0,0) 25%);
+}
+.card .card-body img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	transition: .3s;
+	transform: scale(1);
+	z-index: 1;
+}
+.card .card-main:hover .card-body img {
+	transform: scale(1.1);
+}
+.card .card-body__content {
+	position: absolute;
+	width: 100%;
+	z-index: 3;
+	color: #fff;
+	font-weight: 700;
+	bottom: 0;
+	padding: 15px;
+}
+.card .card-footer {
+	padding: 15px;
+	height: 120px;
+}
+.card .card-footer .card-footer__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.card .card-footer .card-footer__list li {
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+}
+.card .card-footer .card-footer__list li:first-child {
+	font-weight: 700;
+	margin-bottom: auto;
+	font-size: 14px;
+}
+.card .card-footer .card-footer__list li span:last-child {
+	font-weight: 700;
 }

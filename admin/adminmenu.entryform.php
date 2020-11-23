@@ -48,7 +48,7 @@ if($msg){echo"<div align=center class=lnk>" . $msg . "</div>";}
 ?>
  <link rel="stylesheet" type="text/css" href="css/jquery.validate.css" />
 <div id="container-inside">
-<span style="font-size:16px; font-weight:bold"><?=ADMN_TITLE?>  <?php if(isset($_REQUEST['parent_id'])){echo"(Under : " . $dd['name'] . ")";}?>  : <?=$name?></span>
+<span style="font-size:16px; font-weight:bold"><?=ADMN_TITLE?>  <?php if(isset($_REQUEST['parent_id'])){echo"( " . (isset($dd['name']) ? 'Under :' . $dd['name'] : '') . ")";}?>  : <?=$name?></span>
 <hr />
 <form method="post" action="<?=$_SERVER['PHP_SELF']?>" id="form1">
 <input type="hidden" name="parent_id" value="<?=$pid?>" >

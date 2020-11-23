@@ -34,11 +34,11 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
           <table cellpadding="5" cellspacing="2" border="0">
             <tr>
               <td><strong><?php echo CAPACITY_TITLE_ADD_EDIT; ?>:</strong></td>
-              <td valign="middle"><input type="text" name="capacity_title" id="capacity_title" class="required" value="<?=$row['title']?>" style="width:250px;" /> &nbsp;&nbsp;<?php echo EXAMPLE_SINGLE_DOUBLE;?></td>
+              <td valign="middle"><input type="text" name="capacity_title" id="capacity_title" class="required" value="<?= isset($row['title']) ? $row['title'] : ''?>" style="width:250px;" /> &nbsp;&nbsp;<?php echo EXAMPLE_SINGLE_DOUBLE;?></td>
             </tr>
             <tr>
               <td><strong><?php echo ADD_EDIT_CAPACITY_NUMBER_OF_ADULT; ?>:</strong></td>
-              <td><input type="text" name="no_adult" id="no_adult" <?=$readonly?> value="<?=$row['capacity']?>" class="required number" style="width:70px;"  /></td>
+              <td><input type="text" name="no_adult" id="no_adult" <?=$readonly?> value="<?= isset($row['capacity']) ? $row['capacity'] : ''?>" class="required number" style="width:70px;"  /></td>
             </tr>
             
             

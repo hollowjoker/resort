@@ -1567,7 +1567,90 @@ public function fetchClientBookingDetails($clientid){
 			$mysqli->query("delete from bsi_gallery where img_path = '".$row['img_path']."'");
 			$_SESSION['hotelgal'] = $row['roomtype_id'].'#'.$row['capacity_id'];  
 		}
- 
+
+		public function getRoomsListSql() {
+			global $bsiCore;
+			global $mysqli;
+
+			$sql = $mysqli->query("select
+				r.no_of_child,
+				rt.type_name,
+				c.title,
+				c.capacity,
+				c.id cid,
+				rt.roomtype_id rtid
+
+				from bsi_room as r
+				inner join bsi_roomtype as rt
+				on rt.roomtype_ID = r.roomtype_id
+
+				inner join bsi_capacity as c
+				on c.id = r.capacity_id
+
+				group by r.roomtype_id, r.capacity_id
+			");
+
+			$data = [];
+			$i = 0;
+			while($row = $sql->fetch_assoc()){
+				$data[$i] = [
+					'child' => $row['no_of_child'],
+					'type' => $row['type_name'],
+					'capacity' => $row['capacity'],
+					'title' => $row['title'],
+					'cid' => $row['cid'],
+					'rtid' => $row['rtid']
+				];
+				$i++;
+			}
+			return $data;
+		}
+
+		public function getPricePlan($rId, $cId) {
+			global $bsiCore;
+			global $mysqli;
+			$sql = $mysqli->query('select * from bsi_priceplan where roomtype_id = '.$rId.' and capacity_id = '.$cId);
+
+			return $sql->fetch_assoc();
+		}
+
+		
+		public function getRoomPhoto($rid,$cid){
+			global $bsiCore;
+			global $mysqli;
+			$sql=$mysqli->query("select * from bsi_gallery where roomtype_id=".$rid." and capacity_id=".$cid);
+			return $sql->fetch_assoc();
+		}
+
+		public function generateFeedbackHtml(){
+			global $mysqli;
+			$clhtml	= '<tbody>';
+			$result = $mysqli->query("
+				select
+				f.rate,
+				f.feedback,
+				c.first_name,
+				c.surname
+
+				from
+				bsi_feedback as f
+
+				inner join bsi_bookings as b
+				on b.booking_id = f.booking_id
+
+				inner join bsi_clients as c
+				on c.client_id = b.client_id
+			");
+			while($row = $result->fetch_assoc()){
+				$clhtml .= '<tr>
+							  <td >'.$row['first_name'].' '.$row['surname'].'</td>
+							  <td >'.$row['rate'].'</td>
+							  <td >'.$row['feedback'].'</td>
+							</tr>';
+			}
+			$clhtml .= '</tbody>';
+			return $clhtml;
+		}
 		
 }
 ?>

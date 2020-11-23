@@ -365,6 +365,9 @@ define('EDIT_CURRENCY','Edit');
 define('DELETE_CURRENCY','Delete');
 define('NOTE_EXCHANGE_RATE_WILL_BE_AUTO_GENERATED','Note: Exchange Rate Will Be Auto Generated.');
 
+//Feedback_list.php
+define('FEEDBACK_LIST', 'Feedback List');
+
 define('ID_TYPE',' Identity Type');
 define('ID_NUMBER',' Identity Number');
 

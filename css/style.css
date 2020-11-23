@@ -145,6 +145,14 @@ button:hover {
 .table3{ width:100%; background-color:#fac48b;}
 
 .table3 tr td.al-r{ text-align:right;}
+.sear-btn:disabled {
+	background-color: #ccc !important;
+	cursor: not-allowed;
+}
+.sear-btn:hover:disabled {
+	color: #fff;
+	text-shadow: 0 1px 1px #777;
+}
 @media (min-width: 978px) {
 h1{ font-size:26px;}
 h2{ font-size:20px;}
@@ -236,4 +244,42 @@ h2{ font-size:16px;}
 .conti{ float:left;}
 .conti2{ float:left;}
 .table3 tr td{ padding:1px 5px; text-align:center; font-size:11px;}
+}
+
+.form-holder {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.customer-filter.active {
+	display: block;
+}
+.customer-filter {
+	display: none;
+}
+.nav-tab {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	height: 50px;
+	border-bottom: 1px solid #e1dada;
+}
+.nav-tab li {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0px 15px;
+	margin-left: -1px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: .2s;
+	border-radius: 5px 5px 0 0;
+	color: #333;
+	border-bottom: 1px solid transparent;
+}
+.nav-tab li:hover,
+.nav-tab li.active
+{
+	background-color: #e1dada;
+	border-bottom: 1px solid #e1dada;
 }

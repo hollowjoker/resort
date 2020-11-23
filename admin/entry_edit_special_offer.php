@@ -36,16 +36,16 @@ include("../includes/admin.class.php");
     <table cellpadding="5" cellspacing="2" border="0">
      <tr>
         <td valign="middle"><strong><?php echo OFFER_NAME_TEXT; ?>:</strong></td>
-        <td><input type="text" id="offer_name" name="offer_name"  class="required" size="35" value="<?php echo $row1['offer_title'];?>" /></td> 
+        <td><input type="text" id="offer_name" name="offer_name"  class="required" size="35" value="<?php isset($row1['offer_title']) ? $row1['offer_title'] : '';?>" /></td> 
       </tr>
       <tr>
         <td valign="middle"><strong><?php echo START_DATE;?>:</strong></td>
-        <td><input type="text" id="txtFromDate" name="fromDate" class="required" size="10" value="<?php echo $row1['start_date'];?>" />
+        <td><input type="text" id="txtFromDate" name="fromDate" class="required" size="10" value="<?= isset($row1['start_date']) ? $row1['start_date'] : '';?>" />
           <a id="datepickerImage" href="javascript:;"><img src="../images/month.png" height="16px" width="16px" style=" margin-bottom:-4px;" border="0" /></a></td>
       </tr>
       <tr>
         <td valign="middle"><strong><?php echo END_DATE;?>:</strong></td>
-        <td><input type="text" id="txtToDate" name="toDate" class="required" size="10" value="<?php echo $row1['end_date'];?>"/>
+        <td><input type="text" id="txtToDate" name="toDate" class="required" size="10" value="<?= isset($row1['end_date']) ? $row1['end_date'] : '';?>"/>
           <a id="datepickerImage1" href="javascript:;"><img src="../images/month.png" height="18px" width="18px" style=" margin-bottom:-4px;" border="0" /></a></td>
       </tr>
       <tr>
@@ -54,12 +54,12 @@ include("../includes/admin.class.php");
       </tr>
       <tr>
         <td valign="middle"><strong><?php echo PRICE_DEDUCTED;?>:</strong></td>
-        <td><input type="text" id="pr_de" name="pr_de"  class="required number"  style="width:40px;" value="<?php echo $row1['price_deduc'];?>" />
+        <td><input type="text" id="pr_de" name="pr_de"  class="required number"  style="width:40px;" value="<?= isset($row1['price_deduc']) ? $row1['price_deduc'] : '';?>" />
           <?php echo "%";?></td>
       </tr>
       <tr>
         <td valign="middle"><strong><?php echo MINIMUM_STAY_OPTIONAL;?>:</strong></td>
-        <td><input type="text" id="min_sty" name="min_sty"  size="10" value="<?php echo $row1['min_stay'];?>" />
+        <td><input type="text" id="min_sty" name="min_sty"  size="10" value="<?= isset($row1['min_stay']) ? $row1['min_stay'] : '';?>" />
           <?php echo NIGHTS;?> <span style="color:#900">(<?php echo LEAVE_BLANK_IF_NO_MINIMUM_NIGHT_RESTRICTION; ?>)</span></td>
       </tr>
       <tr>

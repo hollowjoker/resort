@@ -43,12 +43,12 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
   <table cellpadding="5" cellspacing="2" border="0">
    <tr>
     <td><strong><?php echo CURRENCY_CODE_LIST; ?>:</strong></td>
-    <td valign="middle"><input type="text" name="currency_code" id="currency_code" class="required" value="<?=$row['currency_code']?>" style="width:150px;" />
+    <td valign="middle"><input type="text" name="currency_code" id="currency_code" class="required" value="<?= isset($row['currency_code']) ? $row['currency_code'] : ''?>" style="width:150px;" />
      </td> 
    </tr>
    <tr>
     <td><strong><?php echo CURRENCY_SYMBOL_LIST; ?>:</strong></td>
-    <td><input type="text" name="currency_symbol" id="currency_symbol" value="<?=$row['currency_symbl']?>" class="required " style="width:70px;"  /></td>
+    <td><input type="text" name="currency_symbol" id="currency_symbol" value="<?= isset($row['currency_symbl']) ? $row['currency_symbl'] : ''?>" class="required " style="width:70px;"  /></td>
    </tr>
    
     <tr>
