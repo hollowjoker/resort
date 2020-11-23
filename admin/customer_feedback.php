@@ -15,14 +15,14 @@ include("../includes/admin.class.php");
 ?>
 
 
-<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo FEEDBACK_LIST;?></span>
+<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?= FEEDBACK_LIST;?></span>
  <hr />
  <table class="display datatable" border="0">
   <thead>
    <tr>
-    <th width="20%"><?php echo FEEDBACK_CLIENT;?></th>
-    <th width="10%"><?php echo FEEDBACK_RATE;?></th>
-    <th width="50%"><?php echo FEEDBACK_COMMENT;?></th>
+    <th width="20%"><?= FEEDBACK_CLIENT;?></th>
+    <th width="10%"><?= FEEDBACK_RATE;?></th>
+    <th width="50%"><?= FEEDBACK_COMMENT;?></th>
    </tr>
   </thead>
   <?=$bsiAdminMain->generateFeedbackHtml()?>
