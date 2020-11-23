@@ -253,7 +253,8 @@ class bsiSearch
 				//*************************** specail offer ******************
 				$csql=$mysqli->query("SELECT distinct(`no_of_child`) FROM `bsi_room` WHERE `capacity_id`=".$capcityid." and `roomtype_id`=".$roomTypeId."");
 				$chld_row2=$csql->fetch_assoc();
-				if($chld_row2['no_of_child'] >= $this->childPerRoom && $this->childPerRoom != 0){
+				
+				if(isset($chld_row2['no_of_child']) && $chld_row2['no_of_child'] >= $this->childPerRoom && $this->childPerRoom != 0){
 					$child_flag=true;
 					$childpricesql = $mysqli->query("SELECT * FROM bsi_priceplan WHERE roomtype_id = ".$roomTypeId." AND capacity_id =1001 AND ('".$val."' BETWEEN start_date AND end_date)");
 					 if($pricesql->num_rows){

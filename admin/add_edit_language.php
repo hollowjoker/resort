@@ -43,16 +43,16 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
   <table cellpadding="5" cellspacing="2" border="0">
    <tr>
     <td><strong><?php echo LANGAUGE_TITLE; ?>:</strong></td>
-    <td valign="middle"><input type="text" name="lang_title" id="lang_title" class="required" value="<?=$row['lang_title']?>" style="width:150px;" />
+    <td valign="middle"><input type="text" name="lang_title" id="lang_title" class="required" value="<?= isset($row['lang_title']) ? $row['lang_title'] : ''?>" style="width:150px;" />
      </td>
    </tr>
    <tr>
     <td><strong><?php echo LANGAUGE_CODE; ?>:</strong></td>
-    <td><input type="text" name="lang_code" id="lang_code" value="<?=$row['lang_code']?>" class="required " style="width:70px;"  /></td>
+    <td><input type="text" name="lang_code" id="lang_code" value="<?= isset($row['lang_code']) ? $row['lang_code'] : ''?>" class="required " style="width:70px;"  /></td>
    </tr>
    <tr>
     <td><strong><?php echo LANGAUGE_FNAME; ?>:</strong></td>
-    <td valign="middle"><input type="text" name="lang_file" id="lang_file" class="required" value="<?=$row['lang_file']?>" style="width:150px;" />
+    <td valign="middle"><input type="text" name="lang_file" id="lang_file" class="required" value="<?= isset($row['lang_file']) ? $row['lang_file'] : ''?>" style="width:150px;" />
      </td>
    </tr>
     <tr>

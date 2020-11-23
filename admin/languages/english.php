@@ -368,4 +368,10 @@ define('NOTE_EXCHANGE_RATE_WILL_BE_AUTO_GENERATED','Note: Exchange Rate Will Be 
 define('ID_TYPE',' Identity Type');
 define('ID_NUMBER',' Identity Number');
 
+//Feedback_list.php
+define('FEEDBACK_LIST', 'Feedback List');
+define('FEEDBACK_RATE', 'Rate');
+define('FEEDBACK_COMMENT', 'Comment');
+define('FEEDBACK_CLIENT', 'Client name');
+
 ?>

@@ -6,7 +6,7 @@ include("includes/search.class.php");
 include("language.php");
 $bsisearch = new bsiSearch();
 $bsiCore->clearExpiredBookings();
-$pos2 = strpos($_SERVER['HTTP_REFERER'],$_SERVER['SERVER_NAME']);
+$pos2 = strpos(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '',$_SERVER['SERVER_NAME']);
 if($bsisearch->nightCount==0 and !$pos2){
 	header('Location: booking-failure.php?error_code=9');
 }

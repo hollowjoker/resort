@@ -34,11 +34,11 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
           <table cellpadding="5" cellspacing="2" border="0">
             <tr>
               <td><strong><?php echo ROOM_TYPE_TITLE;?>:</strong></td>
-              <td valign="middle"><input type="text" name="roomtype_title" id="roomtype_title" class="required" value="<?=$row['type_name']?>" style="width:250px;" /> &nbsp;&nbsp;<?php echo EXAMPLE_DELUXE_AND_STANDARD;?></td>
+              <td valign="middle"><input type="text" name="roomtype_title" id="roomtype_title" class="required" value="<?= isset($row['type_name']) ? $row['type_name'] : ''?>" style="width:250px;" /> &nbsp;&nbsp;<?php echo EXAMPLE_DELUXE_AND_STANDARD;?></td>
             </tr>
             <tr>
               <td valign="top"><strong><?php echo DESCRIPTION_FACILITIES_TEXT; ?>:</strong></td>
-              <td><textarea rows="5" cols="3" name="description" id="description" style="width:700px; height:150px;"><?php echo $row['description'];?></textarea></td>
+              <td><textarea rows="5" cols="3" name="description" id="description" style="width:700px; height:150px;"><?= isset($row['description']) ? $row['description'] : '';?></textarea></td>
             </tr>
             <tr>           
               <td><input type="hidden" name="addedit" value="<?=$id?>"></td>

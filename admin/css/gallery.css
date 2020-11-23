@@ -43,7 +43,13 @@
 
 	
 
-.gallery ul li a img{ display:block; margin:0 0 5px 0; padding:0; border:1px solid #222; }
+.gallery ul li a img{
+	display:block;
+	margin:0 0 5px 0;
+	padding:0;
+	border:1px solid #222;
+	object-fit: cover;	
+}
 .gallery ul li a span.size{
 	display: block;
 	color:#999;

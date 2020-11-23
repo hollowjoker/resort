@@ -141,7 +141,62 @@ $(document).ready(function(){
 				$('#exist_wait').html("")	
 				$('#forgot_pass').html('Forgot Password?')
 		
-	});
+    });
+    
+    $('[data-customer-value]').click(function () {
+        let value = $(this).attr('data-customer-value');
+
+        $('[data-customer-filter]').removeClass('active');
+        $('[data-customer-value]').removeClass('active');
+        $('[data-customer-filter='+value+']').addClass('active');
+        $('[data-customer-value='+value+']').addClass('active');
+        
+    });
+
+
+    $.getJSON('countries+states+cities.json', function(jd) {
+        let statesArray = [];
+        let countryData = '';
+        $.each(jd, function (k, v) {
+            countryData += `<option data-iso2="${v.iso2}">${v.name}</option>`;
+        });
+        $('[name="country"]').append(countryData);
+
+        $('[name="country"]').change(function () {
+            const iso2 = $(this).find('option:selected').attr('data-iso2');
+            const statesFiltered = jd.find( (data) => data.iso2 == iso2).states;
+            let stateOption = '';
+            $.each(statesFiltered, function (k, v) {
+                stateOption += `<option data-state-code="${v.state_code}">${v.name}</option>`;
+            });
+            $('[name="state"]').html(stateOption);
+
+            $('[name="state"]').change(function () {
+                const stateCode = $(this).find('option:selected').attr('data-state-code');
+                const citiesFiltered = statesFiltered.find( (data) => data.state_code == stateCode).cities;
+                let cityOptions = '';
+                $.each(citiesFiltered, function (k, v) {
+                    cityOptions += `<option>${v.name}</option>`;
+                });
+                $('[name="city"]').html(cityOptions);
+            });
+        });
+    });
+
+    // $('[name="state"]').change(function () {
+    //     const stateCode = $(this).find('option:selected').attr('data-state-code');
+    //     console.log(stateCode);
+    //     $.getJSON('cities.json', function (cityData) {
+    //         const citiesFiltered = cityData.filter( (data) => data.state_code == stateCode);
+    //         let cityOptions = '';
+    //         console.log(citiesFiltered);
+    //         $.each(citiesFiltered, function (k, v) {
+    //             cityOptions += `<option>${v.name}</option>`;
+    //         });
+    //         $('[name="city"]').html(cityOptions);
+    //     });
+    // });
+
 });
 function myPopup2(booking_id){
 		var width = 730;
@@ -257,201 +312,212 @@ function myPopup2(booking_id){
                             
                         </div>
                         
-                        <div class="wrapper">
-                            <div class="htitel">
-                                <h2 class="fl" style="border:0; margin:0;"><?php echo CUSTOMER_DETAILS_TEXT; ?></h2>
-                            </div>
-                            <!-- start of search row --> 
-                            <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
-                                    <div class="span12">
-                                        <h3 style="margin-left:2.5%"><?php echo EXISTING_CUSTOMER_TEXT; ?>?</h3>
-                                        
-                                        <form class="form-horizontal" action="booking-process.php" method="post" id="form1" style="width: 95%; margin: 0 2.5%">
-                                            <div class="control-group">
-                                                <label class="control-label" for="ea"><?php echo EMAIL_ADDRESS_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input type="text" name="email_addr_existing" id="email_addr_existing"  class="input-large" />
-                                                </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label" for="pa">Password:</label>
-                                                <div class="controls">
-                                                    <input type="password" name="login_password" id="login_password"  class="input-large" />
-                                                </div>
-                                            </div>
-                                             <div class="control-group">
-                                                <div class="controls" id="exist_wait" >
-                                                    
-                                                </div>
-                                              </div>
-                                              
-                                            <div class="control-group">
-                                                <label class="control-label"></label>
-                                                <div class="controls">
-                                                    <button id="btn_exisitng_cust" type="button" style="display:inline-block"><?php echo FETCH_DETAILS_TEXT; ?></button>
-                                                    <a href="javascript:;" id="forgot_pass" style="width:150px; display:inline-block; padding-left:10px; cursor:pointer;">Forgot Password?</a>
-                                                </div>
-                                            </div>
-                                            
-                                           <div class="text-center"><h1><?php echo OR_TEXT; ?></h1></div> 
-                                            
-                                      <h3 align="left" style="padding-left:5px; color:#999;"><?php echo NEW_CUSTOMER_TEXT; ?>?</h3>    
-                                        <input type="hidden" name="allowlang" id="allowlang" value="no" />
-                                            <div class="control-group">
-                                                <label class="control-label" name="title1" for="title">Title: </label>
-                                                <div class="controls">
-                                                    <select id="title" name="title" class="input-small">
-                                                        <option value="Mr."><?php echo MR_TEXT; ; ?>.</option>
-                                                       <option value="Ms."><?php echo MS_TEXT; ?>.</option>
-                                                       <option value="Mrs."><?php echo MRS_TEXT; ?>.</option>
-                                                       <option value="Miss."><?php echo MISS_TEXT; ?>.</option>
-                                                       <option value="Dr."><?php echo DR_TEXT; ?>.</option>
-                                                       <option value="Prof."><?php echo PROF_TEXT; ?>.</option>
-                                                     </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="fn"><?php echo FIRST_NAME_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input type="text" name="fname" id="fname" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ln"><?php echo LAST_NAME_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input type="text" name="lname" id="lname" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ln"><?php echo ADDRESS_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input type="text" name="str_addr" id="str_addr" class="input-large required">
-                                                </div>
-                                            </div>                                          
-                                            
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ct"><?php echo CITY_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input type="text" name="city"  id="city" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="st"><?php echo STATE_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="state"  id="state" type="text" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="pc"><?php echo POSTAL_CODE_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="zipcode"  id="zipcode" type="text" class="input-large required number">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="co"><?php echo COUNTRY_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="country"  id="country" type="text" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ph"><?php echo PHONE_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="phone"  id="phone" type="text" class="input-large required number">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="fx"><?php echo FAX_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="fax"  id="fax" type="text" class="input-large">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="it"><?php echo ID_TYPE; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="id_type"  id="id_type" type="text" class="input-large"><span class="help-inline">(e.g.: passport.)</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="in"><?php echo ID_NUMBER; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="id_number"  id="id_number" type="text" class="input-large required"><span class="help-inline">(e.g.: passport number.)</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="em"><?php echo EMAIL_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                    <input name="email"  id="email" type="text" class="input-large required email">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ps">Password:</label>
-                                                <div class="controls">
-                                                    <input name="password"  id="password" type="password" class="input-large required">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="pb"><?php echo PAYMENT_BY_TEXT; ?>:</label>
-                                                <div class="controls">
-                                                
-                                                <?php
-													$paymentGatewayDetails = $bsiCore->loadPaymentGateways();				
-													foreach($paymentGatewayDetails as $key => $value){ 	
-														echo '<label class="radio"><input type="radio" name="payment_type" id="payment_type_'.$key.'" value="'.$key.'" class="required" /> '.$value['name'].'</label>';
-													}
-													?>
-                                                    <label class="error" generated="true" for="payment_type" style="display:none;"><?php echo FIELD_REQUIRED_ALERT; ?>.</label>                                                    
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="control-group">
-                                                <label class="control-label" for="ar"><?php echo ADDITIONAL_REQUESTS_TEXT; ?> :</label>
-                                                <div class="controls">
-                                                    <textarea rows="3" id='ar' name="message" class="input-large"></textarea>
-                                                    
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" name="tos" id="tos" value="" class="required">
-                                                        <?php echo I_AGREE_WITH_THE_TEXT; ?> <a href="javascript: ;" onClick="javascript:myPopup2();"> <?php echo TERMS_AND_CONDITIONS_TEXT; ?>.</a>
-                                                    </label>
-                                                    
-                                                </div>
-                                            </div>                                        
-                                    </div>
+                        <form class="form-horizontal" action="booking-process.php" method="post" id="form1" style="width: 100%;">
+                            <div class="wrapper">
+                                <div class="htitel">
+                                    <h2 class="fl" style="border:0; margin:0;"><?php echo CUSTOMER_DETAILS_TEXT; ?></h2>
                                 </div>
-                            </div>  
-                            <!-- end of search row --> 
-                        </div>
-                        <div class="wrapper" style="margin-bottom: 20px">
-                            <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
-                                    <div class="span12">
-                                        <div class="back1">
-                                            <button id="registerButton" type="button" onClick="window.location.href='booking-search.php'" ><?php echo BACK_TEXT; ?></button>
-                                        </div>
-                                        <div class="home">
-                                            <button id="registerButton" type="button" class='home-btn' onClick="window.location.href='index.php'" ><?php echo HOME_TEXT; ?></button>
-                                        </div>
-                                        <div class="continue1">
-                                            <button id="registerButton" type="submit" class="conti" ><?php echo CONTINUE_TEXT; ?></button>
+                                <!-- start of search row --> 
+                                <div class="container-fluid" style="margin:0; padding:0;">
+                                    <div class="row-fluid" style="background-color: #faac59; padding: 10px 0">
+                                        <div class="span12 form-holder">
+                                            <ul class="nav-tab">
+                                                <li class="active" data-customer-value="existing">Existing Customer</li>
+                                                <li data-customer-value="new">New Customer</li>
+                                            </ul>
+                                            <div class="customer-filter active" data-customer-filter="existing">
+                                                <h3 style="padding-left: 10px"><?php echo EXISTING_CUSTOMER_TEXT; ?>?</h3>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ea"><?php echo EMAIL_ADDRESS_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="email_addr_existing" id="email_addr_existing"  class="input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="pa">Password:</label>
+                                                    <div class="controls">
+                                                        <input type="password" name="login_password" id="login_password"  class="input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <div class="controls" id="exist_wait" >
+                                                        
+                                                    </div>
+                                                </div>
+                                                    
+                                                <div class="control-group">
+                                                    <label class="control-label"></label>
+                                                    <div class="controls">
+                                                        <button id="btn_exisitng_cust" type="button" style="display:inline-block"><?php echo FETCH_DETAILS_TEXT; ?></button>
+                                                        <a href="javascript:;" id="forgot_pass" style="width:150px; display:inline-block; padding-left:10px; cursor:pointer;">Forgot Password?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="text-center"><h1><?php echo OR_TEXT; ?></h1></div>  -->
+                                            <div class="customer-filter" data-customer-filter="new">
+                                                <h3 style="padding-left: 10px; color:#999;"><?php echo NEW_CUSTOMER_TEXT; ?>?</h3>    
+                                                <input type="hidden" name="allowlang" id="allowlang" value="no" />
+                                                <div class="control-group">
+                                                    <label class="control-label" name="title1" for="title">Title: </label>
+                                                    <div class="controls">
+                                                        <select id="title" name="title" class="input-small">
+                                                            <option value="Mr."><?php echo MR_TEXT; ; ?>.</option>
+                                                            <option value="Ms."><?php echo MS_TEXT; ?>.</option>
+                                                            <option value="Mrs."><?php echo MRS_TEXT; ?>.</option>
+                                                            <option value="Miss."><?php echo MISS_TEXT; ?>.</option>
+                                                            <option value="Dr."><?php echo DR_TEXT; ?>.</option>
+                                                            <option value="Prof."><?php echo PROF_TEXT; ?>.</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="fn"><?php echo FIRST_NAME_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="fname" id="fname" class="input-large required">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ln"><?php echo LAST_NAME_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="lname" id="lname" class="input-large required">
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ln"><?php echo ADDRESS_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="str_addr" id="str_addr" class="input-large required">
+                                                    </div>
+                                                </div>   
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="co"><?php echo COUNTRY_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <select name="country"  id="country"  class="input-large required">
+                                                            <option disabled selected>Select Country</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="st"><?php echo STATE_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <select name="state"  id="state"  class="input-large required">
+                                                            <option>--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                                                       
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ct"><?php echo CITY_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <select name="city"  id="city"  class="input-large required">
+                                                            <option>--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="pc"><?php echo POSTAL_CODE_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="zipcode"  id="zipcode" type="text" class="input-large required number">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ph"><?php echo PHONE_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="phone"  id="phone" type="text" class="input-large required number">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="fx"><?php echo FAX_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="fax"  id="fax" type="text" class="input-large">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="it"><?php echo ID_TYPE; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="id_type"  id="id_type" type="text" class="input-large"><span class="help-inline">(e.g.: passport.)</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="in"><?php echo ID_NUMBER; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="id_number"  id="id_number" type="text" class="input-large required"><span class="help-inline">(e.g.: passport number.)</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="em"><?php echo EMAIL_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                        <input name="email"  id="email" type="text" class="input-large required email">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ps">Password:</label>
+                                                    <div class="controls">
+                                                        <input name="password"  id="password" type="password" class="input-large required">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="pb"><?php echo PAYMENT_BY_TEXT; ?>:</label>
+                                                    <div class="controls">
+                                                    
+                                                    <?php
+                                                        $paymentGatewayDetails = $bsiCore->loadPaymentGateways();				
+                                                        foreach($paymentGatewayDetails as $key => $value){ 	
+                                                            echo '<label class="radio"><input type="radio" name="payment_type" id="payment_type_'.$key.'" value="'.$key.'" class="required" /> '.$value['name'].'</label>';
+                                                        }
+                                                        ?>
+                                                        <label class="error" generated="true" for="payment_type" style="display:none;"><?php echo FIELD_REQUIRED_ALERT; ?>.</label>                                                    
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="control-group">
+                                                    <label class="control-label" for="ar"><?php echo ADDITIONAL_REQUESTS_TEXT; ?> :</label>
+                                                    <div class="controls">
+                                                        <textarea rows="3" id='ar' name="message" class="input-large"></textarea>
+                                                        
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" name="tos" id="tos" value="" class="required">
+                                                            <?php echo I_AGREE_WITH_THE_TEXT; ?> <a href="javascript: ;" onClick="javascript:myPopup2();"> <?php echo TERMS_AND_CONDITIONS_TEXT; ?>.</a>
+                                                        </label>
+                                                        
+                                                    </div>
+                                                </div>                                        
+                                            </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </div>   
-                        </div>
+                                </div>  
+                                <!-- end of search row --> 
+                            </div>
+                            <div class="wrapper" style="margin-bottom: 20px">
+                                <div class="container-fluid" style="margin:0; padding:0;">
+                                    <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                        <div class="span12">
+                                            <div class="back1">
+                                                <button id="registerButton" type="button" onClick="window.location.href='booking-search.php'" ><?php echo BACK_TEXT; ?></button>
+                                            </div>
+                                            <div class="home">
+                                                <button id="registerButton" type="button" class='home-btn' onClick="window.location.href='index.php'" ><?php echo HOME_TEXT; ?></button>
+                                            </div>
+                                            <div class="continue1">
+                                                <button id="registerButton" type="submit" class="conti" ><?php echo CONTINUE_TEXT; ?></button>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>   
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -21,36 +21,37 @@ $bsiCore->exchange_rate_update();
 
 <script>
 		$(function(){
-// disabling dates
-		var nowTemp = new Date();
-		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-		
-		var checkin = $('#dpd1').datepicker({
-		onRender: function(date) {
-		return date.valueOf() < now.valueOf() ? 'disabled' : '';
-		}
-		}).on('changeDate', function(ev) {
-		if (ev.date.valueOf() > checkout.date.valueOf()) {
-		var newDate = new Date(ev.date)
-		newDate.setDate(newDate.getDate() + <?php echo  $bsiCore->config['conf_min_night_booking']; ?>);
-		checkout.setValue(newDate);
-		//alert(newDate);
-		//alert(checkout.setValue(newDate));
-		}
-		checkin.hide();
-		$('#dpd2')[0].focus();
-		}).data('datepicker');
-		var checkout = $('#dpd2').datepicker({
-		onRender: function(date) {
-		var checkoutdt= parseInt(checkin.date.valueOf())+(60*60*24*1000*<?php echo  ($bsiCore->config['conf_min_night_booking']-1); ?>);
-		
-		return date.valueOf() <= checkoutdt ? 'disabled' : '';
-		
-		}
-		}).on('changeDate', function(ev) {
-		checkout.hide();
-		}).data('datepicker');
-		
+            // disabling dates
+            var nowTemp = new Date();
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+            
+            var checkin = $('#dpd1').datepicker({
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                $('#btn_room_search').attr('disabled', true);
+                if (ev.date.valueOf() > checkout.date.valueOf()) {
+                    var newDate = new Date(ev.date)
+                    newDate.setDate(newDate.getDate() + <?php echo  $bsiCore->config['conf_min_night_booking']; ?>);
+                    checkout.setValue(newDate);
+                    $('#btn_room_search').attr('disabled', false);
+                }
+                checkin.hide();
+                $('#dpd2')[0].focus();
+            }).data('datepicker');
+            var checkout = $('#dpd2').datepicker({
+                onRender: function(date) {
+                    var checkoutdt = parseInt(checkin.date.valueOf())+(60*60*24*1000*<?php echo  ($bsiCore->config['conf_min_night_booking']-1); ?>);
+                    return date.valueOf() <= checkoutdt ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
+                $('#btn_room_search').attr('disabled', true);
+                if (checkin.date.valueOf(), checkout.date.valueOf()) {
+                    $('#btn_room_search').attr('disabled', false);
+                }
+                checkout.hide();
+            }).data('datepicker');
 		});
 	</script>
 
@@ -118,7 +119,7 @@ function langchange(lng)
                        <?php echo $bsiCore->get_currency_combo3($bsiCore->currency_code()); ?>
                        
                         <!--<button id="btn_room_search" class="sear-btn" type="submit" onClick="window.location.href ='search-result.html'">Search</button>-->
-                        <button id="btn_room_search" class="sear-btn" type="submit" ><?php echo SEARCH_TEXT; ?></button>
+                        <button id="btn_room_search" class="sear-btn" type="submit" disabled ><?php echo SEARCH_TEXT; ?></button>
                         </form>
                     </div>
                 </div>
