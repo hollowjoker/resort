@@ -12,7 +12,7 @@ include("../includes/conf.class.php");
 ?>
 <link rel="stylesheet" type="text/css" href="css/jquery.validate.css" />
 <div id="container-inside">
-<span style="font-size:16px; font-weight:bold"><?php echo HOTEL_DETAILS; ?></span>
+<span style="font-size:16px; font-weight:bold"><?php echo "Resort Details"; ?></span>
 <hr />
   <form action="<?=$_SERVER['PHP_SELF']?>" method="post" id="form1">
     <table cellpadding="5" cellspacing="2" border="0">

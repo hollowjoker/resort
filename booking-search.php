@@ -150,7 +150,7 @@ if($bsisearch->nightCount==0 and !$pos2){
 	                          ?>
                             <!-- start of search row --> 
                             <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                <div class="row-fluid" style="background-color: rgba(100,100,200,0.20); padding: 1% 0">
                                    
                                     <div class="span12">
                                         <div class="span5">
@@ -164,7 +164,7 @@ if($bsisearch->nightCount==0 and !$pos2){
                                         </div>
                                         <div class="span7">
                                             <div class="search-details">
-                                                <table cellpadding="5" cellspacing="0" border="0" width="100%"  bgcolor="#faac59" style="text-align:left; " >
+                                                <table cellpadding="5" cellspacing="0" border="0" width="100%" style="text-align:left; background-color: rgba(100,100,230,0.00)">
                                                  <?php if($room_result['specail_price_flag']){ $offertag='style="background:url(images/offer.png) no-repeat left top; padding-left:23px; height:35px;"'; }else{ $offertag='';  }?>
                                                 
                                                     <tr>
@@ -175,26 +175,26 @@ if($bsisearch->nightCount==0 and !$pos2){
                                                     </tr>
                                                     <tr>
                                                         <td width="100%" valign="top" style="font-size:13px">
-                                                            <table  width="100%" class="table table-bordered table2">
+                                                            <table width="100%" class="table table-bordered table2" >
                                                                 <tr>
-                                                                    <td colspan="2" bgcolor="#faa448" >
+                                                                    <td colspan="2" style="background-color: rgba(255,255,255, .50)" >
                                                                         <span style=" font-size:14px; font-weight:bold">
                                                                             <a style="color:#fff" id='iframe_<?php echo str_replace(" ","",$room_type['rtid']).'_'.str_replace(" ","",$capid).$ik; ?>' href="calendar.php?rtype=<?php echo $room_type['rtid']; ?>&cid=<?php echo $capid; ?>" title='<span  style="font-size:16px;"><strong><?php echo $room_type['rtname']; ?></strong> ( <?php echo $capvalues['captitle']; ?> ) </span>' ><?php echo VIEW_NIGHTLY_PRICE_TEXT; ?> &amp; <?php echo CALENDAR_AVAILABILITY_TEXT; ?></a>
                                                                         </span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr> 
-                                                                    <td bgcolor="#faa448"><strong><?php echo MAX_OCCUPENCY_TEXT; ?></strong></td>
-                                                                    <td bgcolor="#faa448"><?php echo $capvalues['capval']; ?>
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><strong><?php echo MAX_OCCUPENCY_TEXT; ?></strong></td>
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><?php echo $capvalues['capval']; ?>
                     <?php echo ADULT_TEXT; ?> <?php if($room_result['child_flag']){ ?> <?php echo AND_TEXT; ?> <?php echo $bsisearch->childPerRoom;?> <?php echo CHILD_TEXT; ?><?php } ?> <?php echo PER_ROOM_TEXT; ?></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td bgcolor="#faa448"><strong> <?php echo TOTAL_PRICE_OR_ROOM_TEXT; ?> </strong></td>
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><strong> <?php echo TOTAL_PRICE_OR_ROOM_TEXT; ?> </strong></td>
                                                                      <?php if($room_result['specail_price_flag']){ ?>
-                                                                    <td bgcolor="#faa448"><span style="font-weight:bold; color:#cc0000;"> <del><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency); ?></del> </span>  <strong><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_specail_price'],$bsisearch->currency); ?></strong> <?php if($room_result['child_flag']){ ?> (included <span style="color:#cc0000; text-decoration:line-through;"><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price'],$bsisearch->currency); ?></span> <?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price2'],$bsisearch->currency); ?> <?php echo FOR_TEXT; ?> <?php echo $bsisearch->childPerRoom;?> <?php echo CHILD_TEXT; ?>) <?php }?></td>
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><span style="font-weight:bold; color:#cc0000;"> <del><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency); ?></del> </span>  <strong><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_specail_price'],$bsisearch->currency); ?></strong> <?php if($room_result['child_flag']){ ?> (included <span style="color:#cc0000; text-decoration:line-through;"><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price'],$bsisearch->currency); ?></span> <?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price2'],$bsisearch->currency); ?> <?php echo FOR_TEXT; ?> <?php echo $bsisearch->childPerRoom;?> <?php echo CHILD_TEXT; ?>) <?php }?></td>
                                                                     
                                                                     <?php }else{ ?>
-                                                                    <td bgcolor="#faa448"><span style="font-weight:bold;"><strong><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency); ?></strong> <?php if($room_result['child_flag']){ ?> (included <?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price'],$bsisearch->currency); ?> <?php echo FOR_TEXT; ?> <?php echo $bsisearch->childPerRoom;?> <?php echo CHILD_TEXT; ?>) <?php }?></td>
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><span style="font-weight:bold;"><strong><?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency); ?></strong> <?php if($room_result['child_flag']){ ?> (included <?php echo $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['total_child_price'],$bsisearch->currency); ?> <?php echo FOR_TEXT; ?> <?php echo $bsisearch->childPerRoom;?> <?php echo CHILD_TEXT; ?>) <?php }?></td>
                                                                      <?php } ?>
                                                                 </tr>
                                                                 <tr>
@@ -203,8 +203,8 @@ if($bsisearch->nightCount==0 and !$pos2){
                                                                     $gotSearchResult = true;
                                                                     ?>
                                                                 
-                                                                    <td bgcolor="#faa448"><strong><?php echo SELECT_NUMBER_OF_ROOM_TEXT; ?></strong></td>
-                                                                    <td bgcolor="#faa448">
+                                                                    <td style="background-color: rgba(255,255,255, .50)"><strong><?php echo SELECT_NUMBER_OF_ROOM_TEXT; ?></strong></td>
+                                                                    <td style="background-color: rgba(255,255,255, .50)">
                                                                         <select name="svars_selectedrooms[]" class="input-mini">
                                                                             <?php echo $room_result['roomdropdown']; ?>
                                                                         </select>
@@ -218,7 +218,7 @@ if($bsisearch->nightCount==0 and !$pos2){
 																		echo '}); </script>';
 					                                               ?>
                                                                     
-                                                                    <td bgcolor="#faa448" colspan="2">
+                                                                    <td style="background-color: rgba(255,255,255, .50)" colspan="2">
                                                                        <strong>Not Available</strong></span> ( <a style="color:#fff; font-size:13px" id='iframe2_<?php echo str_replace(" ","",$room_type['rtid']).'_'.str_replace(" ","",$capid).$ik; ?>' href="calendar.php?rtype=<?php echo $room_type['rtid']; ?>&cid=<?php echo $capid; ?>" title='<span  style="font-size:16px;"><strong><?php echo $room_type['rtname']; ?></strong> ( <?php echo $capvalues['captitle']; ?> ) </span>' ><strong><?php echo CHECK_AVILABILITY; ?> </strong></a> )
                                                                     </td>
                                                                    <?php } ?> 
@@ -265,7 +265,7 @@ if($bsisearch->nightCount==0 and !$pos2){
                         </div>
                         <div class="wrapper" style="margin-bottom: 20px">
                             <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                <div class="row-fluid" style="background-color: rgba(200,200,200, .60)"; padding: 1% 0">
                                 <?php if($flag88){  ?>
                                     <div class="span12">
                                         <div class="back1">

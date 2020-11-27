@@ -786,6 +786,7 @@ public function fetchClientBookingDetails($clientid){
 		$id = $bsiCore->ClearInput($_POST['addedit']);
 		$currency_code = $bsiCore->ClearInput($_POST['currency_code']);
 		$currency_symbl = $bsiCore->ClearInput($_POST['currency_symbol']);
+        $exchange_rate = $bsiCore->ClearInput($_POST['currency_rate']);//new
 		
 			$amount=1;
 			$amount = urlencode($amount);
@@ -805,7 +806,9 @@ public function fetchClientBookingDetails($clientid){
 			$data = explode($to_Currency, $data[1]);
 			$var=round($data[0], 2);
 			
-		if($var != ""){ 
+			
+			
+		if(isset($var)){//if($var != "") 
 		
 		$reslt = $mysqli->query("select * from bsi_currency where currency_code = '".$currency_code."'");	
 		if($reslt->num_rows > 0 &&  $id == 0)
@@ -819,16 +822,16 @@ public function fetchClientBookingDetails($clientid){
 		$mysqli->query("update bsi_currency set default_c=0");  
 		
 		if($id){
-			$mysqli->query("update bsi_currency set currency_code='$currency_code',exchange_rate='$default', currency_symbl='$currency_symbl', default_c='$default'  where id=".$id);
+			$mysqli->query("update bsi_currency set currency_code='$currency_code',exchange_rate='$exchange_rate', currency_symbl='$currency_symbl', default_c='$default'  where id=".$id);
 			
 		}else{ 
-			$mysqli->query("insert into `bsi_currency` (`currency_code`, `currency_symbl`, `default_c`, exchange_rate) values ('$currency_code','$currency_symbl', '$default', '$default')");  
+			$mysqli->query("insert into `bsi_currency` (`currency_code`, `currency_symbl`, `default_c`, `exchange_rate`) values ('$currency_code','$currency_symbl', '$default', '$exchange_rate')");  
 		
 		}
 		
 	
 	
-		$bsiCore->getExchangemoney_update();
+		//$bsiCore->getExchangemoney_update(); this guy changes the currency
 		}
 		}
 		else{

@@ -243,48 +243,48 @@ function myPopup2(booking_id){
                             
                             <table cellpadding="4" cellspacing="1" class="table table-bordered table3">
                                 <tr>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo CHECKIN_DATE_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo CHECKOUT_DATE_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo TOTAL_NIGHT_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo TOTAL_ROOMS_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo CHECKIN_DATE_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo CHECKOUT_DATE_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo TOTAL_NIGHT_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo TOTAL_ROOMS_TEXT; ?></strong></td>
                                 </tr>
                                 <tr>
-                                    <td align="center" bgcolor="#fcb66c"><?php echo $bsibooking->checkInDate; ?></td>
-                                    <td align="center" bgcolor="#fcb66c"><?php echo $bsibooking->checkOutDate; ?></td>
-                                    <td align="center" bgcolor="#fcb66c"><?php echo $bsibooking->nightCount; ?></td>
-                                    <td align="center" bgcolor="#fcb66c"><?php echo $bsibooking->totalRoomCount; ?></td>
+                                    <td align="center" background-color: rgba(255,255,255, .50)><?php echo $bsibooking->checkInDate; ?></td>
+                                    <td align="center" background-color: rgba(255,255,255, .50)><?php echo $bsibooking->checkOutDate; ?></td>
+                                    <td align="center" background-color: rgba(255,255,255, .50)><?php echo $bsibooking->nightCount; ?></td>
+                                    <td align="center" background-color: rgba(255,255,255, .50)><?php echo $bsibooking->totalRoomCount; ?></td>
                                 </tr>
                                 <tr>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo NUMBER_OF_ROOM_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo ROOM_TYPE_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" align="center"><strong><?php echo MAXI_OCCUPENCY_TEXT; ?></strong></td>
-                                    <td bgcolor="#faa448" class="al-r" style="padding-right:5px;"><strong><?php echo GROSS_TOTAL_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo NUMBER_OF_ROOM_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo ROOM_TYPE_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) align="center"><strong><?php echo MAXI_OCCUPENCY_TEXT; ?></strong></td>
+                                    <td background-color: rgba(255,255,255, .50) class="al-r" style="padding-right:5px;"><strong><?php echo GROSS_TOTAL_TEXT; ?></strong></td>
                                 </tr>
                                  <?php		
 									foreach($bookingDetails as $bookings){		
 									$child_title2=($bookings['child_flag2'])? " + ".$bookings['childcount3']." ".CHILD_TEXT." ":"";
 										echo '<tr>';
-										echo '<td align="center" bgcolor="#fcb66c">'.$bookings['roomno'].'</td>';
-										echo '<td align="center" bgcolor="#fcb66c">'.$bookings['roomtype'].' ('.$bookings['capacitytitle'].')</td>';				
-										echo '<td align="center" bgcolor="#fcb66c">'.$bookings['capacity'].' '.INV_ADULT.' '.$child_title2.'</td>';
+										echo '<td align="center" background-color: rgba(255,255,255, .50)>'.$bookings['roomno'].'</td>';
+										echo '<td align="center" background-color: rgba(255,255,255, .50)>'.$bookings['roomtype'].' ('.$bookings['capacitytitle'].')</td>';				
+										echo '<td align="center" background-color: rgba(255,255,255, .50)>'.$bookings['capacity'].' '.INV_ADULT.' '.$child_title2.'</td>';
 											
-										echo '<td class="al-r" bgcolor="#fcb66c" style="padding-right:5px;">'.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bookings['grosstotal'],$_SESSION['sv_currency']).'</td>';
+										echo '<td class="al-r" background-color: rgba(255,255,255, .50) style="padding-right:5px;">'.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bookings['grosstotal'],$_SESSION['sv_currency']).'</td>';
 										echo '</tr>';		
 									}
 								 ?>                                
                                
-                                    <td  class="al-r" colspan="3" bgcolor="#faa448"><strong><?php echo SUB_TOTAL_TEXT; ?></strong></td>
-                                    <td  class="al-r" bgcolor="#faa448" style="padding-right:5px;"><strong> <?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['subtotal'],$_SESSION['sv_currency']); ?></strong></td>
+                                    <td  class="al-r" colspan="3" background-color: rgba(255,255,255, .50)><strong><?php echo SUB_TOTAL_TEXT; ?></strong></td>
+                                    <td  class="al-r" background-color: rgba(255,255,255, .50) style="padding-right:5px;"><strong> <?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['subtotal'],$_SESSION['sv_currency']); ?></strong></td>
                                 </tr>
                                  <?php
 									if($bsiCore->config['conf_tax_amount'] > 0 &&  $bsiCore->config['conf_price_with_tax']==0){
 										$taxtext=""; 
 									?>
                                 <tr>
-                                    <td class="al-r" colspan="3" bgcolor="#fcb66c"><?php echo TAX_TEXT; ?>(
+                                    <td class="al-r" colspan="3" background-color: rgba(255,255,255, .50)><?php echo TAX_TEXT; ?>(
      <?php echo $bsiCore->config['conf_tax_amount']; ?>
      %)</td>
-                                    <td class="al-r" bgcolor="#fcb66c" style="padding-right:5px;"><span id="taxamountdisplay"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['totaltax'],$_SESSION['sv_currency']); ?></span></td>
+                                    <td class="al-r" background-color: rgba(255,255,255, .50) style="padding-right:5px;"><span id="taxamountdisplay"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['totaltax'],$_SESSION['sv_currency']); ?></span></td>
                                 </tr>
                                 <?php }else{
 											$taxtext="(".BD_INC_TAX.")";
@@ -292,18 +292,18 @@ function myPopup2(booking_id){
 										?>
                                 
                                 <tr>
-                                    <td  class="al-r" colspan="3" bgcolor="#faa448"><strong><?php echo GRAND_TOTAL_TEXT; ?></strong> <?php echo $taxtext; ?></td>
-                                    <td class="al-r" bgcolor="#faa448" style="padding-right:5px;"><strong> <span id="grandtotaldisplay"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['grandtotal'],$_SESSION['sv_currency']); ?></span></strong></td>
+                                    <td  class="al-r" colspan="3" background-color: rgba(255,255,255, .50)><strong><?php echo GRAND_TOTAL_TEXT; ?></strong> <?php echo $taxtext; ?></td>
+                                    <td class="al-r" background-color: rgba(255,255,255, .50) style="padding-right:5px;"><strong> <span id="grandtotaldisplay"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['grandtotal'],$_SESSION['sv_currency']); ?></span></strong></td>
                                 </tr>
                                  <?php 
 										if($bsiCore->config['conf_enabled_deposit'] && ($bsibooking->depositPlans['deposit_percent'] > 0 && $bsibooking->depositPlans['deposit_percent'] < 100)){
 										?>
                                 
                                 <tr id="advancepaymentdisplay">
-                                    <td class="al-r" colspan="3" bgcolor="#faa448"><strong></strong> <?php echo ADVANCE_PAYMENT_TEXT; ?>(<span style="font-size:11px;">
+                                    <td class="al-r" colspan="3" background-color: rgba(255,255,255, .50)><strong></strong> <?php echo ADVANCE_PAYMENT_TEXT; ?>(<span style="font-size:11px;">
      <?php echo $bsibooking->depositPlans['deposit_percent']; ?>
      %<?php echo OF_GRAND_TOTAL_TEXT; ?></span>)</td>
-                                    <td class="al-r" bgcolor="#faa448" style="padding-right:5px;"><span id="advancepaymentamount"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['advanceamount'],$_SESSION['sv_currency']); ?> </span></td>
+                                    <td class="al-r" background-color: rgba(255,255,255, .50) style="padding-right:5px;"><span id="advancepaymentamount"><?php echo $bsiCore->get_currency_symbol($_SESSION['sv_currency']).$bsiCore->getExchangemoney($bsibooking->roomPrices['advanceamount'],$_SESSION['sv_currency']); ?> </span></td>
                                 </tr>
                                 <?php
                                 }
@@ -319,7 +319,7 @@ function myPopup2(booking_id){
                                 </div>
                                 <!-- start of search row --> 
                                 <div class="container-fluid" style="margin:0; padding:0;">
-                                    <div class="row-fluid" style="background-color: #faac59; padding: 10px 0">
+                                    <div class="row-fluid" style="background-color: rgba(255,255,255, .50); padding: 10px 0">
                                         <div class="span12 form-holder">
                                             <ul class="nav-tab">
                                                 <li class="active" data-customer-value="existing">Existing Customer</li>
@@ -503,7 +503,7 @@ function myPopup2(booking_id){
                             </div>
                             <div class="wrapper" style="margin-bottom: 20px">
                                 <div class="container-fluid" style="margin:0; padding:0;">
-                                    <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                    <div class="row-fluid" style="background-color: rgba(255,255,255, .50); padding: 1% 0">
                                         <div class="span12">
                                             <div class="back1">
                                                 <button id="registerButton" type="button" onClick="window.location.href='booking-search.php'" ><?php echo BACK_TEXT; ?></button>

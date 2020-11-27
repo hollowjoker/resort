@@ -37,7 +37,7 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
 ?>
 <link rel="stylesheet" type="text/css" href="css/jquery.validate.css" />
 
-<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo LANGAUGE_ADD_EDIT; ?></span>
+<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo "Price Add/Edit"; ?></span>
  <hr />
  <form action="<?=$_SERVER['PHP_SELF']?>" method="post" id="form1">
   <table cellpadding="5" cellspacing="2" border="0">
@@ -50,6 +50,14 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
     <td><strong><?php echo CURRENCY_SYMBOL_LIST; ?>:</strong></td>
     <td><input type="text" name="currency_symbol" id="currency_symbol" value="<?= isset($row['currency_symbl']) ? $row['currency_symbl'] : ''?>" class="required " style="width:70px;"  /></td>
    </tr>
+   
+   <!-- NEW EDIT -->
+   <tr>
+    <td><strong><?php echo "Exchange Rate"; ?>:</strong></td>
+    <td><input type="text" name="currency_rate" id="currency_rate" value="<?= isset($row['exchange_rate']) ? $row['exchange_rate'] : ''?>" class="required " style="width:70px;"  /></td>
+   </tr>
+   <!-- NEW EDIT -->
+   
    
     <tr>
       <td><strong><?php echo DEFAULT_CURRENCY; ?>:</strong></td>

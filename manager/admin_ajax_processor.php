@@ -18,7 +18,7 @@ switch($actionCode){
 	
 	case "5": $adminAjaxProc->genearateCapacityCombo();break;
 	
-	case "6": $adminAjaxProc->getbsiGallery();break;
+	case "6": $adminAjaxProc->getbsiGalleryManager();break;
 	default:  $adminAjaxProc->sendErrorMsg();
 	
    }

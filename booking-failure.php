@@ -44,14 +44,14 @@ if(isset($_GET['rescode'])){ $erroMsg[$errorCode]=$_GET['rescode']; }
                 <div class="row-fluid">
                     <div class="span12">
 						<div id="body-div">
-                        <h1><?php echo $bsiCore->config['conf_hotel_name']; ?></h1>
+                        <h1><a href="index.php"><?php echo $bsiCore->config['conf_hotel_name']; ?></a></h1>
                         <div class="wrapper">
                             <div class="htitel">
                                 <h2 class="fl" style="border:0; margin:0;"><?php echo BOOKING_FAILURE_TEXT; ?></h2>
                             </div>
                             <!-- start of search row --> 
                             <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                <div class="row-fluid" style="background-color: rgba(255,255,255, .50); padding: 1% 0">
                                     <div class="span12" style="text-align:center; padding:20px 0">
                                         <p style="color:#C00"><?php echo $erroMsg[$errorCode]; ?> </p>
                                          <div style="width:100%;">

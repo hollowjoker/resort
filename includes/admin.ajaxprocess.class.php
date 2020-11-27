@@ -306,5 +306,42 @@ $mysqli->query("update bsi_configure set conf_value='1' where conf_key='conf_ena
 			echo json_encode(array("errorcode"=>$errorcode,"strmsg"=>$strmsg));
 		}
 	}
+	
+	public function getbsiGalleryManager(){
+		global $bsiCore;
+		global $mysqli;
+		$errorcode = 0;
+		$strmsg = "";
+		$getArray = array();
+		//$appmt = $bsiCore->ClearInput($_POST['type_capacity_id']);
+		
+		$rmtype_with_capacity_array= array();
+		$rmtype_with_capacity = $bsiCore->ClearInput($_POST['type_capacity_id']);
+		$rmtype_with_capacity_array = explode('#',$rmtype_with_capacity);
+		$room_typeid = $rmtype_with_capacity_array[0]; 
+		$capacityid = $rmtype_with_capacity_array[1];
+		
+		$result = $mysqli->query("select * from bsi_gallery where roomtype_id= ".$room_typeid." and capacity_id= ".$capacityid );
+		if($result->num_rows){
+			$html = '<ul>';
+			while($row = $result->fetch_assoc()){
+				$html .= '<li><a rel="collection" href="../gallery/'.$row['img_path'].'"><img src="../gallery/thumb_'.$row['img_path'].'" width="150px" height="130px"/></a>
+      </li>';
+			}
+    		$html .= '</ul> 
+					<script type="text/javascript">	
+					//FancyBox Config (more info can be found at http://www.fancybox.net/)
+						$(".gallery ul li a").fancybox({
+							\'overlayColor\':\'#000\' 		
+						});
+						$("a img.fancy").fancybox();
+					</script>'; 
+			echo json_encode(array("errorcode"=>$errorcode, "viewcontent"=>$html));
+		}else{
+			$errorcode = 1;
+			$strmsg = SORRY_NO_RESULT_FOUND_ALERT;
+			echo json_encode(array("errorcode"=>$errorcode,"strmsg"=>$strmsg));
+		}
+	}
 }
 ?>

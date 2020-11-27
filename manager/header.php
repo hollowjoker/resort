@@ -33,7 +33,7 @@ $main_title=$_SESSION['main_title'];
 <body>
 <div id="top">
  <div id="top-inside">
-  <div id="bsi-addmin-text">Manager</div>
+  <div id="bsi-addmin-text"><a href="admin-home.php">Manager</a></div>
   <div class=" top-link_last"><a href="logout.php"><?=HEADER_LOGOUT?></a></div>
   <div class=" top-link"><a href="change_password.php"><?=HEADER_CHANGE_PASS?></a></div>
   <div class=" top-link"><a href="admin-home.php"><?=HEADER_HOME?></a></div>
