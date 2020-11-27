@@ -15,20 +15,17 @@ include("../includes/admin.class.php");
 ?>
 
 
-<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo LANGAUGE_LIST;?></span>
- <input type="button" value="<?php echo ADD_NEW_LANGAUGE;?>" onClick="window.location.href='add_edit_language.php?id=0'" style="background: #EFEFEF; float:right"/>
+<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo FEEDBACK_LIST;?></span>
  <hr />
  <table class="display datatable" border="0">
   <thead>
    <tr>
-    <th width="20%"><?php echo LANGAUGE_TITLE;?></th>
-    <th width="15%"><?php echo LANGAUGE_CODE;?></th>
-    <th width="20%"><?php echo LANGAUGE_FNAME;?></th>
-    <th width="20%"><?php echo LANGAUGE_DEFAULT;?></th>
-    <th>&nbsp;</th>
+    <th width="20%"><?php echo "Client Name";?></th>
+    <th width="10%"><?php echo "Rate";?></th>
+    <th width="50%"><?php echo "Comment";?></th>
    </tr>
   </thead>
-  <?=$bsiAdminMain->generateLanguageListHtml()?>
+  <?=$bsiAdminMain->generateFeedbackHtml()?>
  </table>
 
 </div>

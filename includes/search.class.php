@@ -261,7 +261,7 @@ class bsiSearch
 						$chrow=$childpricesql->fetch_assoc();
 				     }else{
 						$childpricesql2 = $mysqli->query("SELECT * FROM bsi_priceplan WHERE roomtype_id = ".$roomTypeId." AND capacity_id =1001 AND  default_plan=1");
-						$chrow=$childpricesql2fetch_assoc();
+						$chrow=$childpricesql2->fetch_assoc();//->edit: was somehow gone
 				      }
 					  
 					  $day=date('D',strtotime($val));					

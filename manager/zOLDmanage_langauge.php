@@ -3,20 +3,20 @@ include("access.php");
 if(isset($_GET['delid'])){
 	include("../includes/db.conn.php"); 
 	include("../includes/conf.class.php");
-	include("../includes/admin.class.php");
+	include("../includes/manager.class.php");
 	$bsiAdminMain->delete_lang();
 	header("location:manage_langauge.php");	
 	exit;
 }
 include("header.php"); 
-include("../includes/admin.class.php");
+include("../includes/manager.class.php");
 
 
 ?>
 
 
 <div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo LANGAUGE_LIST;?></span>
- <input type="button" value="<?php echo ADD_NEW_LANGAUGE;?>" onClick="window.location.href='add_edit_language.php?id=0'" style="background: #EFEFEF; float:right"/>
+ 
  <hr />
  <table class="display datatable" border="0">
   <thead>

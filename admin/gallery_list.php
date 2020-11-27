@@ -13,7 +13,7 @@ include("header.php");
 ?>
 <link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen">
 <link rel="stylesheet" type="text/css" href="css/gallery.css" media="screen">
-<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo HOTEL_PHOTO_GALLERY_TEXT; ?></span>
+<div id="container-inside"> <span style="font-size:16px; font-weight:bold"><?php echo "Resort Photo Gallery"; ?></span>
   <input type="button" value="<?php echo ADD_PHOTO_TEXT; ?>" onClick="window.location.href='add_gallery.php'" style="background: #EFEFEF; float:right"/>
   
     <?php if(isset($_SESSION['hotelgal'])){echo $bsiAdminMain->getroomtypewithcapacity($_SESSION['hotelgal']);}else{echo $bsiAdminMain->getroomtypewithcapacity();}?>
