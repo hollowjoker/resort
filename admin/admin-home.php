@@ -3,30 +3,30 @@ include("access.php");
 include("header.php"); 
 include("../includes/conf.class.php");	
 include("../includes/admin.class.php")
-?>      
-        <div id="container-inside">
-        <span style="font-size:16px; font-weight:bold"><?=LAST_10_BOOKING?></span>
-     	 <hr />
-          <table class="display datatable" border="0" id="test5">
-         <?=$bsiAdminMain->homewidget(1)?>
-        </table>
-         <br />
-         
-         <span style="font-size:16px; font-weight:bold"><?=TODAY_CHECK_IN?></span>
-      	 <hr />
-          <table class="display datatable" border="0">
-         <?=$bsiAdminMain->homewidget(2)?>
-        </table>
-         <br />
-         
-         <span style="font-size:16px; font-weight:bold"><?=TODAY_CHECK_OUT?></span>
-         <hr />
-          <table class="display datatable" border="0">
-        <?=$bsiAdminMain->homewidget(3)?>
-        </table>
-         <br />
-         
-        </div>
+?>
+
+	<div id="container-inside">
+		<span style="font-size:16px; font-weight:bold"><?=LAST_10_BOOKING?></span>
+		<hr />
+		<table class="display datatable" border="0" id="test5">
+			<?=$bsiAdminMain->homewidget(1)?>
+		</table>
+		<br />
+		
+		<span style="font-size:16px; font-weight:bold"><?=TODAY_CHECK_IN?></span>
+		<hr />
+		<table class="display datatable" border="0">
+			<?=$bsiAdminMain->homewidget(2)?>
+		</table>
+		<br />
+		
+		<span style="font-size:16px; font-weight:bold"><?=TODAY_CHECK_OUT?></span>
+		<hr />
+		<table class="display datatable" border="0">
+			<?=$bsiAdminMain->homewidget(3)?>
+		</table>
+		<br />
+	</div>
 <script type="text/javascript" src="js/DataTables/jquery.dataTables.js"></script>
 <script>
  $(document).ready(function() {

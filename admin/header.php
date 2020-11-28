@@ -29,6 +29,7 @@ $main_title=$_SESSION['main_title'];
 <!-- Load JQuery -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/menu.js"></script>
+<script src="https://cdnjs.com/libraries/Chart.js"></script>
 </head>
 <body>
 <div id="top">
