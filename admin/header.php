@@ -18,6 +18,14 @@ elseif($filename=='change_password.php')
 $main_title="Change Password";
 else
 $main_title=$_SESSION['main_title'];
+
+$urlRequest = pathinfo($_SERVER['PHP_SELF'])['basename'];
+$linkJqueryLibrary = '../js/jquery.min.js';
+$assetFilter = true;
+if ($urlRequest == 'view_bookings.php') {
+	$assetFilter = false;
+	$linkJqueryLibrary = 'js/jquery.min.js';
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,11 +33,19 @@ $main_title=$_SESSION['main_title'];
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Admin Page</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../css/bootstrap.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="../css/datepicker1.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" media="screen"/>
 <link type="text/css" href="css/menu.css" rel="stylesheet" />
 <!-- Load JQuery -->
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="<?= $linkJqueryLibrary ?>"></script>
 <script type="text/javascript" src="js/menu.js"></script>
-<script src="https://cdnjs.com/libraries/Chart.js"></script>
+<?php if($assetFilter): ?>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<?php endif;?>
+<script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="top">

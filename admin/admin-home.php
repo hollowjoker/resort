@@ -2,9 +2,90 @@
 include("access.php");
 include("header.php"); 
 include("../includes/conf.class.php");	
-include("../includes/admin.class.php")
+include("../includes/admin.class.php");
 ?>
 
+	<div class="filter-holder">
+		<form action="admin-home.php">
+			<div class="form-group">
+				<label for="">Filter: </label>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="a_startDate" autocomplete="off" date-picker="1" value="<?= isset($_GET['a_startDate']) ? $_GET['a_startDate'] : ''?>" />
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="a_endDate" autocomplete="off" date-picker="2" value="<?= isset($_GET['a_endDate']) ? $_GET['a_endDate'] : ''?>"/>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-info">Search</button>
+			</div>
+		</form>
+	</div>
+	<div class="chart-holder">
+		<div class="chart-holder-panels">
+			<div class="chart-holder-panels__holder panel-success">
+				<div class="chart-holder-panels__holder--icon">
+					<i class="fa fa-chevron-up"></i>
+				</div>
+				<div class="chart-holder-panels__holder--detail" data-content="most-month">
+					<span data-pop="total">0</span>
+					<span data-filter="month">Month</span>
+					<span>Month w/ most Booking</span>
+				</div>
+			</div>
+		</div>
+		<div class="chart-holder-panels">
+			<div class="chart-holder-panels__holder panel-danger">
+				<div class="chart-holder-panels__holder--icon">
+					<i class="fa fa-chevron-down"></i>
+				</div>
+				<div class="chart-holder-panels__holder--detail" data-content="least-month">
+					<span data-pop="total">0</span>
+					<span data-filter="month">Month</span>
+					<span>Month w/ least Booking</span>
+				</div>
+			</div>
+		</div>
+		<div class="chart-holder-panels">
+			<div class="chart-holder-panels__holder panel-success">
+				<div class="chart-holder-panels__holder--icon">
+					<i class="fa fa-chevron-up"></i>
+					<i class="fa fa-bookmark-o"></i>
+				</div>
+				<div class="chart-holder-panels__holder--detail" data-content="most-room">
+					<span data-pop="total">0</span>
+					<span data-filter="room">Room Name</span>
+					<span>Room w/ most Booking</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="chart-holder-panels">
+			<div class="chart-holder-panels__holder panel-danger">
+				<div class="chart-holder-panels__holder--icon">
+					<i class="fa fa-chevron-down"></i>
+					<i class="fa fa-bookmark-o"></i>
+				</div>
+				<div class="chart-holder-panels__holder--detail" data-content="least-room">
+					<span data-pop="total">0</span>
+					<span data-filter="room">Room Name</span>
+					<span>Room w/ least Booking</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="chart-holder">
+		<div class="chart-holder__canvas">
+			<div class="chart-holder__canvas--header">No. Bookings /month</div>
+			<canvas id="bookingsMonth" height="300"></canvas>
+		</div>
+	</div>
+	<div class="chart-holder">
+		<div class="chart-holder__canvas">
+			<div class="chart-holder__canvas--header">No. Bookings /room</div>
+			<canvas id="bookingsRoom" height="300"></canvas>
+		</div>
+	</div>
 	<div id="container-inside">
 		<span style="font-size:16px; font-weight:bold"><?=LAST_10_BOOKING?></span>
 		<hr />
@@ -30,34 +111,161 @@ include("../includes/admin.class.php")
 <script type="text/javascript" src="js/DataTables/jquery.dataTables.js"></script>
 <script>
  $(document).ready(function() {
-	 	var oTable = $('.datatable').dataTable( {
-				"bJQueryUI": true,
-				"sScrollX": "",
-				"bSortClasses": false,
-				"aaSorting": [[0,'desc']],
-				"bAutoWidth": true,
-				"bInfo": true,
-				"sScrollY": "100%",	
-				"sScrollX": "100%",
-				"bScrollCollapse": true,
-				"sPaginationType": "full_numbers",
-				"bRetrieve": true,
-				"oLanguage": {
-								"sSearch": "<?=DT_SEARCH?>:",
-								"sInfo": "<?=DT_SINFO1?> _START_ <?=DT_SINFO2?> _END_ <?=DT_SINFO3?> _TOTAL_ <?=DT_SINFO4?>",
-								"sInfoEmpty": "<?=DT_INFOEMPTY?>",
-								"sZeroRecords": "<?=DT_ZERORECORD?>",
-								"sInfoFiltered": "(<?=DT_FILTER1?> _MAX_ <?=DT_FILTER2?>)",
-								"sEmptyTable": "<?=DT_EMPTYTABLE?>",
-								"sLengthMenu": "<?=DT_LMENU?> _MENU_ <?=DT_SINFO4?>",
-								"oPaginate": {
-												"sFirst":    "<?=DT_FIRST?>",
-												"sPrevious": "<?=DT_PREV?>",
-												"sNext":     "<?=DT_NEXT?>",
-												"sLast":     "<?=DT_LAST?>"
-											  }
-							 }
+	var oTable = $('.datatable').dataTable( {
+			"bJQueryUI": true,
+			"sScrollX": "",
+			"bSortClasses": false,
+			"aaSorting": [[0,'desc']],
+			"bAutoWidth": true,
+			"bInfo": true,
+			"sScrollY": "100%",	
+			"sScrollX": "100%",
+			"bScrollCollapse": true,
+			"sPaginationType": "full_numbers",
+			"bRetrieve": true,
+			"oLanguage": {
+							"sSearch": "<?=DT_SEARCH?>:",
+							"sInfo": "<?=DT_SINFO1?> _START_ <?=DT_SINFO2?> _END_ <?=DT_SINFO3?> _TOTAL_ <?=DT_SINFO4?>",
+							"sInfoEmpty": "<?=DT_INFOEMPTY?>",
+							"sZeroRecords": "<?=DT_ZERORECORD?>",
+							"sInfoFiltered": "(<?=DT_FILTER1?> _MAX_ <?=DT_FILTER2?>)",
+							"sEmptyTable": "<?=DT_EMPTYTABLE?>",
+							"sLengthMenu": "<?=DT_LMENU?> _MENU_ <?=DT_SINFO4?>",
+							"oPaginate": {
+											"sFirst":    "<?=DT_FIRST?>",
+											"sPrevious": "<?=DT_PREV?>",
+											"sNext":     "<?=DT_NEXT?>",
+											"sLast":     "<?=DT_LAST?>"
+											}
+							}
 	} );
+
+	$('[date-picker="1"], [date-picker="2"]').datepicker();
+
+	const options = {
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true
+				}
+			}]
+		}
+	};
+
+	$.post(
+		"chartResultGetter.php",
+		{type: "mostMonth"}
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			const mainContainer = $('[data-content="most-month"]');
+			mainContainer.find('[data-pop="total"]').text(data.total);
+			mainContainer.find('[data-filter="month"]').text(moment(data.start_date).format('MMM YYYY'));
+		}
+	});
+	$.post(
+		"chartResultGetter.php",
+		{type: "leastMonth"}
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			const mainContainer = $('[data-content="least-month"]');
+			mainContainer.find('[data-pop="total"]').text(data.total);
+			mainContainer.find('[data-filter="month"]').text(moment(data.start_date).format('MMM YYYY'));
+		}
+	});
+
+	$.post(
+		"chartResultGetter.php",
+		{type: "mostRoom"}
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			const mainContainer = $('[data-content="most-room"]');
+			mainContainer.find('[data-pop="total"]').text(data.sumed);
+			mainContainer.find('[data-filter="room"]').text(`${data.type_name} (${data.title})`);
+		}
+	});
+	
+	$.post(
+		"chartResultGetter.php",
+		{type: "leastRoom"}
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			const mainContainer = $('[data-content="least-room"]');
+			mainContainer.find('[data-pop="total"]').text(data.sumed);
+			mainContainer.find('[data-filter="room"]').text(`${data.type_name} (${data.title})`);
+		}
+	});
+
+	var monthlyBookingsChart = $('#bookingsMonth');
+	$.post(
+		"chartResultGetter.php",
+		{
+			type: "bookingsMonthly",
+			a_startDate: "<?= isset($_GET['a_startDate']) ? $_GET['a_startDate'] : '' ?>",
+			a_endDate: "<?= isset($_GET['a_endDate']) ? $_GET['a_endDate'] : '' ?>"
+		}
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			let labels = [];
+			let datas = [];
+			data.forEach((data, key) => {
+				labels.push(moment(data.start_date).format('MMM YYYY'));
+				datas.push(data.total);
+			});
+			new Chart(monthlyBookingsChart, {
+				responsive: true,
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: '# of Booking',
+						data: datas,
+						backgroundColor: 'rgba(167, 166, 244, .5)',
+						borderColor: '#6ff',
+						borderWidth: 3
+					}]
+				},
+				options: options
+			});
+		}
+	});
+
+	var roomBookingsChart = $('#bookingsRoom');
+	$.post(
+		"chartResultGetter.php",
+		{ type: "allRooms" }
+	).done(function (returnData) {
+		if (returnData != '') {
+			const data = JSON.parse(returnData);
+			let labels = [];
+			let datas = [];
+			data.forEach((data, key) => {
+				labels.push(`${data.type_name} (${data.title})`);
+				datas.push(data.sumed);
+			});
+			new Chart(roomBookingsChart, {
+				responsive: true,
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: '# of Booking',
+						data: datas,
+						backgroundColor: 'rgba(167, 166, 244, .5)',
+						borderColor: '#6ff',
+						borderWidth: 3
+					}]
+				},
+				options: options
+			});
+		}
+	});
+
+
 } );
 </script> 
 <script type="text/javascript" src="js/bsi_datatables.js"></script>

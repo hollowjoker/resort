@@ -70,3 +70,104 @@ a:hover{
 	color:#67E6EC;
 	text-decoration:none;
 }
+
+.chart-holder, .filter-holder {
+	width: 100%;
+	display: flex;
+	padding-left: 15px;
+	padding-right: 15px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+}
+.filter-holder {
+	padding-top: 20px;
+}
+.filter-holder form {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.filter-holder form .form-group {
+	display: flex;
+	align-items: center;
+	margin-right: 5px;
+}
+.filter-holder form .form-group .form-control {
+	margin-bottom: 0;
+	width: 100px;
+}
+.chart-holder {
+	margin-bottom: 10px;
+}
+.chart-holder .chart-holder__canvas  {
+	width: 100%;
+	background-color: #343b3e;
+}
+.chart-holder .chart-holder__canvas .chart-holder__canvas--header {
+	padding: 10px 15px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+} 
+.chart-holder .chart-holder__canvas canvas {
+	width: 100%;
+}
+.chart-holder .chart-holder-panels {
+	width: 25%;
+	padding: 0 15px;
+}
+.chart-holder .chart-holder-panels:first-child {
+	padding-left: 0;
+}
+.chart-holder .chart-holder-panels:last-child {
+	padding-right: 0;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder  {
+	background-color: #343b3e;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder .chart-holder-panels__holder--icon {
+	font-size: 30px;
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder .chart-holder-panels__holder--detail {
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder .chart-holder-panels__holder--detail span {
+	font-size: 10px;
+	color: #aeaeae;
+	margin-bottom: 5px;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder .chart-holder-panels__holder--detail span:nth-child(2) {
+	font-weight: bold;
+}
+.chart-holder .chart-holder-panels .chart-holder-panels__holder .chart-holder-panels__holder--detail span:first-child {
+	font-weight: bold;
+	font-size: 40px;
+}
+.panel-success .chart-holder-panels__holder--icon,
+.panel-success .chart-holder-panels__holder--detail span:nth-child(2),
+.panel-success .chart-holder-panels__holder--detail span:nth-child(1)
+{
+	color: #49caca !important;
+}
+.panel-danger .chart-holder-panels__holder--icon,
+.panel-danger .chart-holder-panels__holder--detail span:nth-child(2),
+.panel-danger .chart-holder-panels__holder--detail span:nth-child(1)
+{
+	color: #ca4949 !important;
+}
