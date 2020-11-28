@@ -2,27 +2,32 @@ body, #top, #top-inside, #bsi-addmin-text, .top-link, #container, #footer, .clr{
 
 .clr{ width:100%;}
 
-body{ background:url(../images/login_bg.gif) top center;}
+body{ background:url(../images/resortimg2.jpg) top center;
+background-position: absolute;
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment:fixed;
+}
 
-#top{ width:100%; height:40px; background-color:#191919;}
+#top{ width:100%; height:40px; background-color:#0BB5FF;}
 
 #top-inside{ width:960px; height:40px; margin: 0 auto;}
 
 #bsi-addmin-text{ width:300px; color:#fff; font: bold 16px Tahoma, Geneva, sans-serif; margin-top:10px; float:left;}
 
-.top-link{ padding-right:20px; text-align: right; font:12px normal Tahoma, Geneva, sans-serif; float:right; display:block; margin-top:14px;}
+.top-link{ padding-right:20px; text-align: right; font:15px normal Tahoma, Geneva, sans-serif; float:right; display:block; margin-top:14px;}
 
-.top-link a{ text-decoration:none; color:#CCC;}
+.top-link a{ text-decoration:none; color:#000000;}
 
-.top-link a:hover{ color:#666;}
+.top-link a:hover{text-decoration:none; color:#bbbbbb;}
 
 
 
-.top-link_last{ padding:0 2px; text-align: right; font:12px normal Tahoma, Geneva, sans-serif; float:right; display:block; margin-top:14px;}
+.top-link_last{ padding:0 2px; text-align: right; font:15px normal Tahoma, Geneva, sans-serif; float:right; display:block; margin-top:14px;}
 
-.top-link_last a{ text-decoration:none; color:#CCC;}
+.top-link_last a{ text-decoration:none; color:#000000;}
 
-.top-link_last a:hover{ color:#666;}
+.top-link_last a:hover{text-decoration:none; color:#bbbbbb;}
 
 #con{ width:100%; float:left;}
 
@@ -36,11 +41,11 @@ body{ background:url(../images/login_bg.gif) top center;}
 
 #contain{ width:100%; float:left;
 
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D0D0D0', endColorstr='#505050'); /* for IE */
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BBFFFF', endColorstr='#505050'); /* for IE */
 
-background: -webkit-gradient(linear, left top, left bottom, from(#D0D0D0), to(#505050)); /* for webkit browsers */
+background: -webkit-gradient(linear, left top, left bottom, from(#BBFFFF), to(#104E8B)); /* for webkit browsers */
 
-background: -moz-linear-gradient(top,  #D0D0D0,  #505050); /* for firefox 3.6+ */ 
+background: -moz-linear-gradient(top,  #BBFFFF,  #39B7DC); /* for firefox 3.6+ */ 
 
 }
 
@@ -57,11 +62,11 @@ background: -moz-linear-gradient(top,  #D0D0D0,  #505050); /* for firefox 3.6+ *
 .fl-right{ float:right;}
 
 a{
-	color:#36F;
+	color:#50A6C2;
 	text-decoration:none;
 }
 
 a:hover{
-	color:#09F;
-	text-decoration:underline;
+	color:#67E6EC;
+	text-decoration:none;
 }

@@ -2,7 +2,11 @@
 	
 /*  LOGIN -------------------------------------------------------------------------------- */	
 #login-bg	{
-	background: url(../images/login_bg.jpg) no-repeat top center;
+	background: url(../images/resortimg2.jpg);
+	background-position: absolute;
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment:fixed;
 	}
 #login-holder	{
 	margin: 0px auto 0 auto;
