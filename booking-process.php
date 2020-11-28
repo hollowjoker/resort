@@ -58,8 +58,8 @@ function processPayOnArrival(){
 	$emailBody  = "Dear ".$bookprs->clientName.",<br><br>";
 	$emailBody .= $emailContent['body']."<br><br>";
 	$emailBody .= $bookprs->invoiceHtml;
-	$emailBody .= '<br><br>'.mysql_real_escape_string(PP_REGARDS).',<br>'.$bsiCore->config['conf_hotel_name'].'<br>'.$bsiCore->config['conf_hotel_phone'];
-	$emailBody .= '<br><br><font style=\"color:#F00; font-size:10px;\">[ '.mysql_real_escape_string(PP_CARRY).' ]</font>';	
+	$emailBody .= '<br><br>'.mysqli_real_escape_string(PP_REGARDS).',<br>'.$bsiCore->config['conf_hotel_name'].'<br>'.$bsiCore->config['conf_hotel_phone'];
+	$emailBody .= '<br><br><font style=\"color:#F00; font-size:10px;\">[ '.mysqli_real_escape_string(PP_CARRY).' ]</font>';	
 				
 	$returnMsg = $bsiMail->sendEMail($bookprs->clientEmail, $subject, $emailBody);
 	

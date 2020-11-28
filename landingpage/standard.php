@@ -8,7 +8,9 @@
    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     <script type="text/javascript" src="engine1/jquery.js"></script>
 </head>
-<body>
+<body><?php
+    include('header.php');
+?> <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<div class="main_container" >
             <div id="headr_img">
                 <span id="main_nav"> 
@@ -17,12 +19,11 @@
                         <a href="../index.php">Reservations</a>
                 </span>
             </div>
-			<img src="images/resort_landingpage.jpg"/>
    <div id="content_container">
    
                          <h4 id="home_header">Standard Rooms</h4><br />
-        <p style="font-size:16px;">We are spaciously designed to suit your modern lifestyle. Our amenities are ideal for both business and holiday travelers. We present quality rooms at unbelievably cheap, affordable rates.</p><br/>
-        <p style="font-size:16px;">Whether travelling on business or for a weekend of fun and vacation, this is the perfect place to put your feet up at the end of the day.</p><br/>
+        <p style="font-size:16px;">Standard rooms are the bread and butter of creative techies resort. These are the most popular rooms for customers, which is why creative techies makes sure that the room and ammenities are clean, disenfected, and of top quality for customers to enjoy their stay at the resort. The room has everything a vacationing customer could wish for. A nice, bouncy bed, a an airconditioner, a cooler, and more. Standard rooms are the most popular rooms in the resort, so why don't you go and reserve one of ours so you can find out why?</p><br/>
+      
    
    <h2>Standard Room Gallery</h2>
 <div id="wowslider-container1">
@@ -63,6 +64,22 @@
       </div>
          <div id="footer_container">
      </div>
+</div>
+  <style>
+.footer_container {
+   position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height:80px;
+   background-color: black;
+   color: white;
+   text-align: center;
+   margin-bottom:-200px;
+}
+</style>
+<div class="footer_container">
+  <p>Creative Techies Resort</p>
 </div>
 </body>
 </html>

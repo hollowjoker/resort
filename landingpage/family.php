@@ -8,7 +8,10 @@
    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
     <script type="text/javascript" src="engine1/jquery.js"></script>
 </head>
-<body>
+<body><?php
+    include('header.php');
+?> <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+
 	<div class="main_container" >
             <div id="headr_img">
                 <span id="main_nav"> 
@@ -17,7 +20,6 @@
                         <a href="reserve.php">Reservations</a>
                 </span>
             </div>
-			<img src="images/resort_landingpage.jpg"/>
    <div id="content_container">
                          <h4 id="home_header">Family Rooms</h4><br />
         <p style="font-size:16px;">We are spaciously designed to suit your modern lifestyle. Our amenities are ideal for both business and holiday travelers. We present quality rooms at unbelievably cheap, affordable rates.</p><br/>

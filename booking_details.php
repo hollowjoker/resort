@@ -323,10 +323,10 @@ function myPopup2(booking_id){
                                         <div class="span12 form-holder">
                                             <ul class="nav-tab">
                                                 <li class="active" data-customer-value="existing">Existing Customer</li>
-                                                <li data-customer-value="new">New Customer</li>
+                                                <li data-customer-value="new">Reservation Information</li>
                                             </ul>
                                             <div class="customer-filter active" data-customer-filter="existing">
-                                                <h3 style="padding-left: 10px"><?php echo EXISTING_CUSTOMER_TEXT; ?>?</h3>
+                                                <h3 style="padding-left: 10px"><?php echo EXISTING_CUSTOMER_TEXT; ?></h3>
                                                 
                                                 <div class="control-group">
                                                     <label class="control-label" for="ea"><?php echo EMAIL_ADDRESS_TEXT; ?>:</label>
@@ -356,7 +356,7 @@ function myPopup2(booking_id){
                                             </div>
                                             <!-- <div class="text-center"><h1><?php echo OR_TEXT; ?></h1></div>  -->
                                             <div class="customer-filter" data-customer-filter="new">
-                                                <h3 style="padding-left: 10px; color:#999;"><?php echo NEW_CUSTOMER_TEXT; ?>?</h3>    
+                                                <h3 style="padding-left: 10px; color:#999;"><?php echo NEW_CUSTOMER_TEXT; ?></h3>    
                                                 <input type="hidden" name="allowlang" id="allowlang" value="no" />
                                                 <div class="control-group">
                                                     <label class="control-label" name="title1" for="title">Title: </label>
@@ -414,9 +414,9 @@ function myPopup2(booking_id){
                                                 <div class="control-group">
                                                     <label class="control-label" for="ct"><?php echo CITY_TEXT; ?>:</label>
                                                     <div class="controls">
-                                                        <select name="city"  id="city"  class="input-large required">
-                                                            <option>--</option>
-                                                        </select>
+                                                        <input type="text" name="city"  id="city"  class="input-large required">
+                                                         
+                                                        </input>
                                                     </div>
                                                 </div>
                                                 

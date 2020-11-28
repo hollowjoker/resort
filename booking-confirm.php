@@ -50,7 +50,7 @@ session_destroy();
                             </div>
                             <!-- start of search row --> 
                             <div class="container-fluid" style="margin:0; padding:0;">
-                                <div class="row-fluid" style="background-color: #faac59; padding: 1% 0">
+                                <div class="row-fluid" style="background-color: rgba(255,255,255, .50); padding: 1% 0">
                                     <div class="span12" style="text-align:center; padding:20px 0">
                                     	<p><strong><?php echo THANK_YOU_TEXT; ?>!</strong></p>
                                         <p><?php echo YOUR_BOOKING_CONFIRMED_TEXT; ?>. <?php echo INVOICE_SENT_EMAIL_ADDRESS_TEXT; ?>.</p>

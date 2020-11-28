@@ -1,15 +1,17 @@
 <?php
     include('header.php');
 ?>
+ <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+ 
 <section id="content">
     <div class="bg-top">
         <div class="bg-top-2">
             <div class="bg">
                 <div class="bg-top-shadow"> 
                     <div class="main">
-                            <h4 id="home_header">Accomodations & Facilities</h4><br />
-    <p style="font-size:16px;">We are spaciously designed to suit your modern lifestyle. Our amenities are ideal for both business and holiday travelers. We present quality rooms at unbelievably cheap, affordable rates.</p><br/>
-    <p style="font-size:16px;">Whether travelling on business or for a weekend of fun and vacation, this is the perfect place to put your feet up at the end of the day.</p><br/>
+                            <h4 id="home_header">Catalogue</h4><br />
+    <p style="font-size:16px;">Creative Techies resort have a multitude of accommodations and facilities for customers to enjoy. Standard rooms, Deluxe rooms, and even event halls are all available. Rooms come in single or double bed. Each rooms also have inclusive items to help customers relax and enjoy their stay at creative techies resort.</p><br/>
+    <p style="font-size:16px;">.</p><br/>
                         <div class="gallery p3">
                             <div class="wrapper indent-bot">
                                 <div id="gallery" class="content"> 
@@ -44,7 +46,6 @@
                             </div>
                             <div class="inner-2">
                                 <div class="call_to_action" id="grn"><a href="eventhall.php">Event Halls</a></div>
-                                <div class="call_to_action" id="orn"><a href="family.php">Family Rooms</a></div>
                                 <div class="call_to_action" id="orn"><a href="deluxe.php">Deluxe Rooms</a></div>
                                 <div class="call_to_action" id="orn"><a href="standard.php">Standard Rooms</a></div>
                             </div>
@@ -110,6 +111,19 @@
     });
 </script>
 
-<?php
-    include('footer.php');
-?>
+  <style>
+.footer_container {
+   position: relative;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height:80px;
+   background-color: black;
+   color: white;
+   text-align: center;
+   margin-bottom:-200px;
+}
+</style>
+<div class="footer_container">
+  <p>Creative Techies Resort</p>
+</div>
