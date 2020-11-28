@@ -152,8 +152,10 @@ include("../includes/admin.class.php");
 		}
 	};
 
+	const postRequestUrl = 'chartResultGetter.php';
+
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{type: "mostMonth"}
 	).done(function (returnData) {
 		if (returnData != '') {
@@ -164,7 +166,7 @@ include("../includes/admin.class.php");
 		}
 	});
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{type: "leastMonth"}
 	).done(function (returnData) {
 		if (returnData != '') {
@@ -176,7 +178,7 @@ include("../includes/admin.class.php");
 	});
 
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{type: "mostRoom"}
 	).done(function (returnData) {
 		if (returnData != '') {
@@ -188,7 +190,7 @@ include("../includes/admin.class.php");
 	});
 	
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{type: "leastRoom"}
 	).done(function (returnData) {
 		if (returnData != '') {
@@ -201,7 +203,7 @@ include("../includes/admin.class.php");
 
 	var monthlyBookingsChart = $('#bookingsMonth');
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{
 			type: "bookingsMonthly",
 			a_startDate: "<?= isset($_GET['a_startDate']) ? $_GET['a_startDate'] : '' ?>",
@@ -236,7 +238,7 @@ include("../includes/admin.class.php");
 
 	var roomBookingsChart = $('#bookingsRoom');
 	$.post(
-		"chartResultGetter.php",
+		postRequestUrl,
 		{ type: "allRooms" }
 	).done(function (returnData) {
 		if (returnData != '') {
