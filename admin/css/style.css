@@ -171,3 +171,10 @@ a:hover{
 {
 	color: #ca4949 !important;
 }
+
+.dataTables_filter {
+	width: 184px !important;
+}
+.dataTables_wrapper .ui-widget-header select {
+	width: 52px !important;
+}
