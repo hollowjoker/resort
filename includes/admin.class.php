@@ -1654,6 +1654,110 @@ public function fetchClientBookingDetails($clientid){
 			$clhtml .= '</tbody>';
 			return $clhtml;
 		}
+
+		public function getAnalyticsBookings () {
+			global $bsiCore;
+			global $mysqli;
+			$dateStart = $_POST['a_startDate'] != '' ? date('Y-m-d', $_POST['a_startDate'] != '') : '';
+			$dateEnd = $_POST['a_endDate'] != '' ? date('Y-m-d', strtotime($_POST['a_endDate'])) : '';
+
+			$subQuery = '';
+			if ($dateStart != '' && $dateEnd != '') {
+				$subQuery = ' where start_date between "'.$dateStart.'" and "'.$dateEnd.'" ';
+			}
+
+			$query = 'select count(booking_id) as total, start_date from bsi_bookings '.$subQuery.' group by YEAR(start_date), MONTH(start_date)';
+			$result = $mysqli->query($query);
+
+			$dataArr = [];
+			while ($row = $result->fetch_assoc()) {
+				$dataArr[] = $row;
+			}
+			return json_encode($dataArr);
+		}
+
+		public function getAnalyticsBookingMonth($type) {
+			global $bsiCore;
+			global $mysqli;
+
+			$query = 'select count(booking_id) as total, start_date from bsi_bookings group by YEAR(start_date), MONTH(start_date)';
+			$result = $mysqli->query($query);
+
+			$dataArr = '';
+			$mostMonth = 0;
+			$i = 0;
+			while ($row = $result->fetch_assoc()) {
+				if ($type == 'mostMonth') {
+					if ($mostMonth <= $row['total']) {
+						$mostMonth = $row['total'];
+						$dataArr = $row;
+					}
+				} elseif ($type == 'leastMonth') {
+					if ($i == 0) {
+						$mostMonth = $row['total'];
+					};
+					if ($mostMonth > $row['total']) {
+						$mostMonth = $row['total'];
+						$dataArr = $row;
+					};
+					$i++;
+				}
+			}
+			return json_encode($dataArr);
+		}
+
+		public function getAnalyticsBookingRoom($type) {
+			global $bsiCore;
+			global $mysqli;
+
+			$query = '
+				select
+
+				count(room.room_ID) as total,
+				bc.title,
+				rtype.type_name,
+				(select count(br.id) from bsi_reservation br where br.room_id = room.room_ID) as sumed
+				
+				from bsi_room room
+				
+				inner join bsi_roomtype rtype
+				on room.roomtype_id = rtype.roomtype_ID
+				
+				inner join bsi_capacity bc
+				on room.capacity_id = bc.id 
+				
+				group by room.room_ID
+			';
+			$result = $mysqli->query($query);
+
+			$dataArr = '';
+			if ($type == 'allRooms') {
+				$dataArr = [];
+			}
+			$mostRoom = 0;
+			$i = 0;
+			while ($row = $result->fetch_assoc()) {
+				if ($type == 'mostRoom') {
+					if ($mostRoom <= $row['sumed']) {
+						$mostRoom = $row['sumed'];
+						$dataArr = $row;
+					}
+				} elseif ($type == 'leastRoom') {
+					if ($i == 0) {
+						$mostRoom = $row['sumed'];
+						$dataArr = $row;
+					};
+					if ($mostRoom > $row['sumed']) {
+						$mostRoom = $row['sumed'];
+						$dataArr = $row;
+					};
+					$i++;
+				} elseif ($type == 'allRooms') {
+					$dataArr[] = $row;
+				}
+			}
+			return json_encode($dataArr);
+		}
 		
 }
 ?>
