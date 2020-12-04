@@ -156,7 +156,13 @@ class bsiSearch
 		$sql->close();
 	}
 	
-	public function getAvailableRooms($roomTypeId, $roomTypeName, $capcityid){
+	public function getAvailableRooms($roomTypeId, $roomTypeName, $capcityid, $checkIn = null, $checkOut = null){
+		if ($checkIn == null) {
+			$checkIn = $this->mysqlCheckInDate;
+		}
+		if ($checkOut == null) {
+			$checkOut = $this->mysqlCheckOutDate;
+		}
 		global $bsiCore;
 		global $mysqli;		
 		//$currency_symbol = $bsiCore->config['conf_currency_symbol'];		
@@ -201,7 +207,6 @@ class bsiSearch
 			$totalDays = $this->getDateRangeArray($this->mysqlCheckInDate, $this->mysqlCheckOutDate);	
 			$totalamt3=0;
 			
-			 
 			$dayName=array_count_values($totalDays[1]);
 			$_month = date('M',strtotime($this->mysqlCheckInDate));
 			$month_ = date('M',strtotime($this->mysqlCheckOutDate));
@@ -212,7 +217,7 @@ class bsiSearch
 			}else{
 				$mon = $_month.' - '.$month_;
 			}
-			 $price_details_html='<tr><td bgcolor='.$_color.'><b>'.MONTH.'</b></td>';
+			 $price_details_html='<tr><td bgcolor='.$_color.'><b>Month</b></td>';
 			  foreach($dayName as $days => $totalnum){
 				
 				 $$days=0;

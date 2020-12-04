@@ -156,6 +156,24 @@ class bsiHotelCore{
 		
 		return $childhtml;
 	}
+
+	public function getChildcomboNew(){
+		global $mysqli;
+		$child_res=$mysqli->query("SELECT max(`no_of_child`) as mchild FROM `bsi_room`");
+		$rowchild=$child_res->fetch_assoc();
+		$childhtml="";
+		if($rowchild['mchild']){
+			$childhtml.= '<select class="input-medium" id="child_per_room" name="child_per_room"><option value="0" selected>None</option>' ;
+			for($k=1;$k<=$rowchild['mchild'];$k++){
+				  $childhtml.='<option value="'.$k.'">'.$k.'</option>';
+			}
+			$childhtml.=' </select></div></div>';
+		}else{
+			$childhtml ='<input type="hidden" name="child_per_room" value="0"/>';
+		}
+		
+		return $childhtml;
+	}
 	
 	
 	 
@@ -242,6 +260,31 @@ class bsiHotelCore{
 		  
 		  return $combo;
 	  }
+
+	  public function get_currency_combo3New($c_code){
+		global $mysqli;
+		$sql=$mysqli->query("select * from bsi_currency order by currency_code");
+		$combo='<div class="control-group">
+						  <div class="controls">
+							  <select class="input-medium" name="currency" id="currency">';
+		 
+		 
+		while($row=$sql->fetch_assoc()){
+			if($row['currency_code'] == $c_code)
+			$combo.='<option value="'.$row["currency_code"].'"  selected="selected">'.$row['currency_code'].'</option>';
+			else
+			$combo.='<option value="'.$row["currency_code"].'">'.$row['currency_code'].'</option>';
+		}
+		$combo.='  </select>
+						  </div>
+					  </div>';
+		if($sql->num_rows == 1){
+		  
+			 $combo='<input type="hidden" name="currency" value="'.$this->currency_code().'" />';
+		}
+		
+		return $combo;
+	}
 	  
 	   public function get_currency_combo2($c_code){
 		  global $mysqli;

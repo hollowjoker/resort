@@ -178,3 +178,13 @@ a:hover{
 .dataTables_wrapper .ui-widget-header select {
 	width: 52px !important;
 }
+.table-holder {
+	display: flex;
+}
+.custom-main-table {
+	width: 50%;
+}
+.custom-table {
+	background-color: #fff;
+	width: 50%;
+}

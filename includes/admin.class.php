@@ -1759,5 +1759,87 @@ public function fetchClientBookingDetails($clientid){
 			return json_encode($dataArr);
 		}
 		
+		public function add_edit_adminBooking () {
+			global $bsiCore;
+			global $mysqli;
+
+			
+			$id = $bsiCore->ClearInput($_POST['addedit']);
+			$capacity = $bsiCore->ClearInput($_POST['capacity']);
+			$check_in = $mysqli->real_escape_string($_POST['check_in']);
+			$check_out = $mysqli->real_escape_string($_POST['check_out']);
+			$child_per_room = $bsiCore->ClearInput($_POST['child_per_room']);
+			$currency = $mysqli->real_escape_string($_POST['currency']);
+			$fname = $mysqli->real_escape_string($_POST['fname']);
+			$lname = $mysqli->real_escape_string($_POST['lname']);
+			$email = $mysqli->real_escape_string($_POST['email']);
+			$bookingId = time();
+
+			$sql1 = $mysqli->query("SELECT client_id FROM bsi_clients WHERE email = '".$email."'");
+
+			if($sql1->num_rows > 0){
+				$clientrow = $sql1->fetch_assoc();
+				$clientId = $clientrow["client_id"];	
+			} else {
+				$passworddt= "'".md5('12345')."'";
+				$sql2 = $mysqli->query("INSERT INTO bsi_clients (first_name, surname, email, password) values ('".$fname."', '".$lname."', '".$email."', ".$passworddt.")");
+				$clientId = $mysqli->insert_id;	
+			}
+
+			$checkin_date = getdate(strtotime($check_in));
+			$checkout_date = getdate(strtotime($check_out));
+			$checkin_date_new = mktime( 12, 0, 0, $checkin_date['mon'], $checkin_date['mday'], $checkin_date['year']);
+			$checkout_date_new = mktime( 12, 0, 0, $checkout_date['mon'], $checkout_date['mday'], $checkout_date['year']);
+			$nightCount = round(abs($checkin_date_new - $checkout_date_new) / 86400);
+
+			
+			$totalRooms = 0;
+			foreach($_POST['svars_selectedrooms'] as $key => $revdata){
+				$totalRooms = $totalRooms + $revdata;
+			}
+
+			$invoiceHtml = '<table style="font-family:Verdana, Geneva, sans-serif; font-size: 12px; background:#999999; width:700px; border:none;" cellpadding="4" cellspacing="1"><tbody><tr><td align="left" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;" colspan="4">Booking Details</td></tr>
+			<tr><td align="left" style="background:#ffffff;">Booking Number</td><td align="left" style="background:#ffffff;" colspan="3">'.$bookingId.'</td></tr>
+			<tr><td align="left" style="background:#ffffff;">Customer Name</td><td align="left" style="background:#ffffff;" colspan="3">'.$fname.' '.$lname.'</td></tr>	
+			<tr height="8px;"><td align="left" style="background:#ffffff;" colspan="4"></td></tr>
+			<tr><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Check-In Date</td><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Check-Out Date</td><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Total Nights</td><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Total Rooms</td></tr>
+			<tr><td align="center" style="background:#ffffff;">'.$check_in.'</td><td align="center" style="background:#ffffff;">'.$check_out.'</td><td align="center" style="background:#ffffff;">'.$nightCount.'</td><td align="center" style="background:#ffffff;">'.$totalRooms.'</td></tr>
+			<tr height="8px;"><td align="left" style="background:#ffffff;" colspan="4">&nbsp;</td></tr>
+			<tr><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Number of Room</td><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Room Type</td><td align="center" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Max Occupancy</td><td align="right" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Gross Total</td></tr>';
+			
+			$grandSumTotal = 0;
+			foreach($_POST['svars_selectedrooms'] as $key => $revdata){
+				if ($revdata) {
+					$sumTotal = $_POST['grandTotal'][$key] * $revdata;
+					$grandSumTotal = $sumTotal + $grandSumTotal;
+
+					$invoiceHtml.= '<tr><td align="center" style="background:#ffffff;">'.$revdata.'</td><td align="center" style="background:#ffffff;">'.$_POST['roomname'][$key].'</td><td align="center" style="background:#ffffff;">'.$revdata['capacity'].' Adult';		
+					$invoiceHtml.= '</td><td align="right" style="background:#ffffff;">'.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).number_format($sumTotal, 2 ).'</td></tr>';
+				}
+			}
+			$invoiceHtml.= '<tr height="8px;"><td align="left" style="background:#ffffff;" colspan="4"></td></tr><tr><td colspan="3" align="right" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Sub Total</td><td align="right" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">'.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).number_format($grandSumTotal, 2).'</td></tr>';
+			
+			$taxedAmount = ($grandSumTotal * $bsiCore->config['conf_tax_amount'])/100;
+			$grandSumTotal = $grandSumTotal + $taxedAmount;
+			$invoiceHtml.= '<tr><td colspan="3" align="right" style="background:#ffffff;">Tax('.number_format($bsiCore->config['conf_tax_amount'], 2 , '.', '').'%)</td><td align="right" style="background:#ffffff;">(+) '.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).number_format($taxedAmount, 2).'</td></tr><tr><td colspan="3" align="right" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Grand Total</td><td align="right" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">'.$bsiCore->get_currency_symbol($_SESSION['sv_currency']).number_format($grandSumTotal, 2).'</td></tr>';
+			$invoiceHtml.= '<br /><table  style="font-family:Verdana, Geneva, sans-serif; font-size: 12px; background:#999999; width:700px; border:none;" cellpadding="4" cellspacing="1"><tr><td align="left" colspan="2" style="font-weight:bold; font-variant:small-caps; background:#eeeeee;">Payment Details</td></tr><tr><td align="left" width="30%" style="font-weight:bold; font-variant:small-caps;background:#ffffff;">Payment Option</td><td align="left" style="background:#ffffff;">Manual</td></tr><tr><td align="left" width="30%" style="font-weight:bold; font-variant:small-caps; background:#ffffff;">Transaction ID</td><td align="left" style="background:#ffffff;">NA</td></tr></table>';
+			
+			$sql = $mysqli->query("
+			INSERT
+			INTO 
+			bsi_bookings 
+			(booking_id, booking_time, start_date, end_date, client_id, total_cost, payment_amount, payment_type, payment_success)
+			values
+			(".$bookingId.", NOW(), '".$bsiCore->getMySqlDate($check_in)."', '".$bsiCore->getMySqlDate($check_out)."', ".$clientId.", ".$grandSumTotal.", ".$grandSumTotal.", 'poa', 1)");
+
+			foreach($_POST['svars_selectedrooms'] as $key => $revdata){
+				if ($revdata) {
+					$sql = $mysqli->query("INSERT INTO bsi_reservation (bookings_id, room_id, room_type_id) values(".$bookingId.",  ".$_POST['room_id'][$key].", ".$_POST['rt_id'][$key].")");
+				}
+			}
+			$insertInvoiceSQL = $mysqli->query("INSERT INTO bsi_invoice(booking_id, client_name, client_email, invoice) values(".$bookingId.", '".$fname.' '.$lname."', '".$email."', '".$invoiceHtml."')");
+
+		}
+		
 }
 ?>
