@@ -27,7 +27,9 @@ include("../includes/conf.class.php");
 </script>
       <div id="container-inside">
       <span style="font-size:16px; font-weight:bold"><?php echo VIEW_BOOKING_LIST;?></span>
+      <input type="button" value="Add New Booking" onClick="window.location.href='add_edit_booking.php?id=0'" style="background: #EFEFEF; float:right; padding-left: 10px; padding-right: 10px;"/>
       <hr />
+      
         <form action="view_active_or_archieve_bookings.php" method="post" id="form1">
           <table cellpadding="5" cellspacing="2" border="0">
             <tr>
