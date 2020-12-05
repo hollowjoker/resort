@@ -11,8 +11,6 @@ if(isset($_POST['submitCapacity'])){
 include("header.php"); 
 include("../includes/conf.class.php");
 include("../includes/admin.class.php");
-include("../includes/search.class.php");
-$bsisearch = new bsiSearch();
 if(isset($_GET['id']) && $_GET['id'] != ""){
 	$id = $bsiCore->ClearInput($_GET['id']);
 	if($id){
@@ -37,12 +35,12 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
             <table cellpadding="5" cellspacing="2" border="0" class="custom-main-table">
               <tr>
                 <td><strong>Check In Date:</strong></td>
-                <td valign="middle"><input type="text" name="check_in" id="check_in" class="required" style="width:250px;" date-picker="1" autocomplete="off" /></td>
+                <td valign="middle"><input type="text" name="check_in" id="check_in" readonly class="required" style="width:250px;" date-picker="1" autocomplete="off" /></td>
               </tr>
               <tr>
               <tr>
                 <td><strong>Check Out Date:</strong></td>
-                <td valign="middle"><input type="text" name="check_out" id="check_out" class="required" style="width:250px;" date-picker="2" autocomplete="off" /></td>
+                <td valign="middle"><input type="text" name="check_out" id="check_out" readonly class="required" style="width:250px;" date-picker="2" autocomplete="off" /></td>
               </tr>
               <tr>
                 <td><strong>Adult/Room:</strong></td>
@@ -88,9 +86,15 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
             </thead>
             <tbody>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
+                <td><span class="grandTotal">0</span></td>
+              </tr>
+            </tfoot>
           </table>
           <div class="text-right">
-            <td><input type="hidden" name="addedit" value="<?=$id?>"></td>
+            <input type="hidden" name="addedit" value="<?=$id?>">
             <input type="submit" value="Submit" name="submitCapacity" style="background:#e5f9bb; cursor:pointer; cursor:hand;"/>
           </div>
         </form>
@@ -143,18 +147,36 @@ if(isset($_GET['id']) && $_GET['id'] != ""){
                   <td>${inData.capval}</td>
                   <td>${inData.total}</td>
                   <td>
-                    <select name="svars_selectedrooms[]">${inData.roomdropdown}</select>
-                    <input type="text" name="room_id[]" value="${inData.roomId}">
-                    <input type="text" name="rt_id[]" value="${inData.rtId}">
-                    <input type="text" name="grandTotal[]" value="${inData.grandTotal}">
-                    <input type="text" name="roomname[]" value="${inData.rtname}(${inData.captitle})">
-                    <input type="text" name="capacitytitle[]" value="${inData.rtname}(${inData.captitle})">
-                    <input type="text" name="capacityCount[]" value="${inData.capval}">
+                    <select name="svars_selectedrooms[]" style="width: 100px;">${inData.roomdropdown}</select>
+                    <input type="hidden" name="room_id[]" value="${inData.roomId}">
+                    <input type="hidden" name="rt_id[]" value="${inData.rtId}">
+                    <input type="hidden" name="grandTotal[]" value="${inData.grandTotal}">
+                    <input type="hidden" name="roomname[]" value="${inData.rtname}(${inData.captitle})">
+                    <input type="hidden" name="capacitytitle[]" value="${inData.rtname}(${inData.captitle})">
+                    <input type="hidden" name="capacityCount[]" value="${inData.capval}">
+                    <input type="hidden" name="currencySymbol" value="${inData.currencySymbol}">
+                  </td>
+                  <td>
+                    ${inData.currencySymbol}
+                    <span>
+                      0
+                    </span>
+                    <input type="hidden" data-compute="total" value="0"/>
                   </td>
                 </tr>`;
               });
               $('#roomResult tbody').html(strAppend);
-
+              let taxedGrandTotal = 0;
+              $('[name="svars_selectedrooms[]"]').change(function () {
+                let lineTotal = 0;
+                lineTotal = $(this).val() * $(this).closest('td').find('[name="grandTotal[]"]').val();
+                $(this).closest('tr').find('span').text(lineTotal);
+                $(this).closest('tr').find('[data-compute="total"]').val(lineTotal);
+                $('[data-compute="total"]').each(function () {
+                  taxedGrandTotal = parseInt(taxedGrandTotal) + parseInt($(this).val());
+                });
+                $('.grandTotal').text(`${$('[name="currencySymbol"]').val()}${taxedGrandTotal.toFixed(2)}`);
+              });
             }
           });
         }
