@@ -1840,6 +1840,53 @@ public function fetchClientBookingDetails($clientid){
 			$insertInvoiceSQL = $mysqli->query("INSERT INTO bsi_invoice(booking_id, client_name, client_email, invoice) values(".$bookingId.", '".$fname.' '.$lname."', '".$email."', '".$invoiceHtml."')");
 
 		}
+
+		public function getNotification () {
+			global $bsiCore;
+			global $mysqli;
+			$sql = "
+				select
+					bc.first_name,
+					bc.surname,
+					mn.message,
+					br.room_no,
+					mn.date_created,
+					bt.type_name,
+					bca.title,
+					mn.status,
+					mn.type
+					
+				from mobile_notif as mn
+				
+				inner join bsi_clients as bc
+				on mn.client_id = bc.client_id 
+				
+				inner join bsi_room as br
+				on mn.room_id = br.room_ID
+				
+				inner join bsi_roomtype as bt
+				on br.roomtype_id = bt.roomtype_ID 
+				
+				inner join bsi_capacity as bca
+				on br.capacity_id = bca.id 
+				order by mn.date_created desc
+			";
+
+			$result = $mysqli->query($sql);
+			$data = [];
+			while($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+
+			return json_encode($data);
+		}
+
+		public function readNotification() {
+			global $bsiCore;
+			global $mysqli;
+			$sql = "UPDATE mobile_notif set status = 1 where status = 0";
+			$result = $mysqli->query($sql);
+		}
 		
 }
 ?>

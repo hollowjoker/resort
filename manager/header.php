@@ -54,6 +54,15 @@ if ($urlRequest == 'view_bookings.php') {
   <div class=" top-link_last"><a href="logout.php"><?=HEADER_LOGOUT?></a></div>
   <div class=" top-link"><a href="change_password.php"><?=HEADER_CHANGE_PASS?></a></div>
   <div class=" top-link"><a href="admin-home.php"><?=HEADER_HOME?></a></div>
+  <div class=" top-link" data-action="notif">
+  	<a href="#" class="notification-holder">
+	  <i class="fa fa-bell-o"></i>
+	  <span class="badge badge-danger" data-badge="count">0</span>
+	  <div class="notification-menu">
+	  	<ul></ul>
+	  </div>
+	</a>
+</div>
  
  </div>
 </div>
