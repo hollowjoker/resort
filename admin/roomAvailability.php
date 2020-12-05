@@ -29,7 +29,8 @@
                     'total' => $bsiCore->get_currency_symbol($bsisearch->currency).$bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency),
                     'grandTotal' => (int)str_replace(',', '', $bsiCore->getExchangemoney($room_result['totalprice'],$bsisearch->currency)),
                     'roomdropdown' => $room_result['roomdropdown'],
-                    'roomId' => $roomData['room_ID']
+                    'roomId' => $roomData['room_ID'],
+                    'currencySymbol' => $bsiCore->get_currency_symbol($bsisearch->currency),
                 ];
             }
         }
