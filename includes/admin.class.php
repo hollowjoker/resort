@@ -1658,22 +1658,98 @@ public function fetchClientBookingDetails($clientid){
 		public function getAnalyticsBookings () {
 			global $bsiCore;
 			global $mysqli;
-			$dateStart = $_POST['a_startDate'] != '' ? date('Y-m-d', $_POST['a_startDate'] != '') : '';
-			$dateEnd = $_POST['a_endDate'] != '' ? date('Y-m-d', strtotime($_POST['a_endDate'])) : '';
-
+			$dateStart = $_POST['a_startDate'] != '' ? date('Y-m-d', strtotime($_POST['a_startDate'].'-01-01')) : date('Y-m-d', strtotime('first day of january this year'));
+			$dateEnd = $_POST['a_endDate'] != '' ? date('Y-m-d', strtotime($_POST['a_startDate'].'-12-31')) : date('Y-m-d', strtotime('last day of december this year'));
 			$subQuery = '';
 			if ($dateStart != '' && $dateEnd != '') {
 				$subQuery = ' where start_date between "'.$dateStart.'" and "'.$dateEnd.'" ';
 			}
 
-			$query = 'select count(booking_id) as total, start_date from bsi_bookings '.$subQuery.' group by YEAR(start_date), MONTH(start_date)';
+			$query = 'select count(booking_id) as total, start_date from bsi_bookings '.$subQuery.' group by YEAR(start_date), MONTH(start_date) ';
 			$result = $mysqli->query($query);
 
 			$dataArr = [];
 			while ($row = $result->fetch_assoc()) {
 				$dataArr[] = $row;
 			}
-			return json_encode($dataArr);
+
+			$query = "select * from bsi_bookings order by start_date asc limit 1";
+			$fetchedYear = $mysqli->query($query)->fetch_assoc();
+			$firstYearOfData = date('Y');
+			if ($fetchedYear) {
+				$firstYearOfData = date('Y', strtotime($fetchedYear['start_date']));
+			}
+
+			$diff = abs(date('Y') - $firstYearOfData) + 1;
+
+			$query = 'select count(booking_id) as total, start_date from bsi_bookings group by MONTH(start_date)';
+			$result = $mysqli->query($query);
+
+			$dataArr2 = [];
+			while ($row = $result->fetch_assoc()) {
+				$dataArr2[] = [
+					"start_date" => $row['start_date'],
+					"total" => $row['total'] / $diff
+				];
+			}
+
+			$forcasted = [];
+			$actual = [];
+
+			for($i = 1; $i <= 12; $i++) {
+				$currentYear = date('Y', strtotime($dateStart));
+				$currentDate = $currentYear.'-'.$i.'-1';
+				$counter = $i;
+				if (count($dataArr)) {
+					foreach($dataArr as $key => $value) {
+						if ($counter == $i) {
+							if (date('m', strtotime($value['start_date'])) == date('m', strtotime($currentDate))) {
+								$actual[$i] = [
+									"start_date" => $currentDate,
+									"total" => $value['total'],
+								];
+								$counter++;
+							} else {
+								$actual[$i] = [
+									"start_date" => $currentDate,
+									"total" => 0,
+								];
+							}
+						}
+					}
+				} else {
+					$actual[$i] = [
+						"start_date" => $currentDate,
+						"total" => 0,
+					];
+				}
+				$counter2 = $i;
+				if (count($dataArr2)) {
+					foreach($dataArr2 as $key => $value) {
+						if ($counter2 == $i) {
+							if (date('m', strtotime($value['start_date'])) == date('m', strtotime($currentDate))) {
+								$forcasted[$i] = [
+									"start_date" => $currentDate,
+									"total" => $value['total'],
+								];
+								$counter2++;
+							} else {
+								$forcasted[$i] = [
+									"start_date" => $currentDate,
+									"total" => 0,
+								];
+							}
+						}
+					}
+				} else {
+					$forcasted[$i] = [
+						"start_date" => $currentDate,
+						"total" => 0,
+					];
+				}
+			}
+
+			return json_encode([$actual, $forcasted]);
 		}
 
 		public function getAnalyticsBookingMonth($type) {
@@ -1724,7 +1800,7 @@ public function fetchClientBookingDetails($clientid){
 				on room.roomtype_id = rtype.roomtype_ID
 				
 				inner join bsi_capacity bc
-				on room.capacity_id = bc.id 
+				on room.capacity_id = bc.id
 				
 				group by room.room_ID
 			';
