@@ -6,18 +6,22 @@ include("../includes/admin.class.php");
 ?>
 
 	<div class="filter-holder">
-		<form action="admin-home.php">
+		<form action="admin-home.php" id="filterForm">
 			<div class="form-group">
-				<label for="">Filter: </label>
+				<label for="">Filter Year: </label>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="a_startDate" autocomplete="off" date-picker="1" value="<?= isset($_GET['a_startDate']) ? $_GET['a_startDate'] : ''?>" />
+				<button type="button" class="btn btn-info" data-filter="sub">
+					<i class="fa fa-chevron-left"></i>
+				</button>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" name="a_endDate" autocomplete="off" date-picker="2" value="<?= isset($_GET['a_endDate']) ? $_GET['a_endDate'] : ''?>"/>
+				<input type="text" class="form-control text-center" name="a_startDate" readonly autocomplete="off" value="<?= isset($_GET['a_startDate']) ? $_GET['a_startDate'] : date('Y') ?>" />
 			</div>
 			<div class="form-group">
-				<button class="btn btn-info">Search</button>
+				<button type="button" class="btn btn-info" data-filter="add">
+					<i class="fa fa-chevron-right"></i>
+				</button>
 			</div>
 		</form>
 	</div>
@@ -211,25 +215,38 @@ include("../includes/admin.class.php");
 		}
 	).done(function (returnData) {
 		if (returnData != '') {
-			const data = JSON.parse(returnData);
+			const returnDataVal = JSON.parse(returnData);
 			let labels = [];
-			let datas = [];
-			data.forEach((data, key) => {
-				labels.push(moment(data.start_date).format('MMM YYYY'));
-				datas.push(data.total);
-			});
+			let actualData = [];
+			let forecastedData = [];
+			for(let i = 1; i <= 12; i++) {
+				labels.push(moment(returnDataVal[0][i].start_date).format('MMM YYYY'));
+				actualData.push(returnDataVal[0][i].total);
+			}
+			for(let i = 1; i <= 12; i++) {
+				forecastedData.push(returnDataVal[1][i].total);
+			}
 			new Chart(monthlyBookingsChart, {
 				responsive: true,
 				type: 'line',
 				data: {
 					labels: labels,
-					datasets: [{
-						label: '# of Booking',
-						data: datas,
-						backgroundColor: 'rgba(167, 166, 244, .5)',
-						borderColor: '#6ff',
-						borderWidth: 3
-					}]
+					datasets: [
+						{
+							label: "Actual Numbers",
+							data: actualData,
+							backgroundColor: 'rgba(167, 166, 244, .5)',
+							borderColor: '#6ff',
+							borderWidth: 3
+						},
+						{
+							label: "Forcasting Analytics",
+							data: forecastedData,
+							backgroundColor: 'rgba(254, 92, 54, .5)',
+							borderColor: '#feb449',
+							borderWidth: 3
+						},
+					],
 				},
 				options: options
 			});
@@ -267,7 +284,15 @@ include("../includes/admin.class.php");
 		}
 	});
 
-
+	$('[data-filter]').click(function () {
+		const value = moment($('[name="a_startDate"]').val());
+		if ($(this).data('filter') == 'add') {
+			$('[name="a_startDate"]').val(value.add(1, 'year').format('YYYY'));
+		} else {
+			$('[name="a_startDate"]').val(value.subtract(1, 'year').format('YYYY'));
+		}
+		$('#filterForm').submit();
+	});
 } );
 </script> 
 <script type="text/javascript" src="js/bsi_datatables.js"></script>
